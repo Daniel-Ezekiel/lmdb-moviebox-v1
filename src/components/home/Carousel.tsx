@@ -76,10 +76,6 @@ const Carousel = ({
       </div>
     ));
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (isError) {
     return <div>Error</div>;
   }
@@ -113,7 +109,18 @@ const Carousel = ({
         )}
       </div>
 
-      <div className='flex gap-3 overflow-x-scroll'>{movies || tv}</div>
+      <div className='flex gap-3 overflow-x-scroll'>
+        {isLoading
+          ? Array(20)
+              .fill("")
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className='min-w-[18rem] min-h-[39rem] bg-gray-200 animate-pulse rounded-xl'
+                />
+              ))
+          : movies || tv}
+      </div>
     </section>
   );
 };

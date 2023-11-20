@@ -23,10 +23,6 @@ const Hero = () => {
       : setCurrMoviePos((prevPos) => prevPos + 1);
   }
 
-  if (isLoading) {
-    return <div className='max-w-[124rem] mx-auto p-3'>Loading...</div>;
-  }
-
   if (isError) {
     return (
       <div className='max-w-[124rem] mx-auto p-3'>
@@ -36,45 +32,53 @@ const Hero = () => {
   }
 
   return (
-    <section
-      style={{
-        backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.backdrop_path}')`,
-      }}
-      className='relative h-[75vh] bg-[50%_10%] bg-cover bg-no-repeat grid text-base text-gray-100'
-    >
-      <div className='absolute top-[0] left-[0] h-full w-full bg-[rgba(17,24,39,0.5)]'></div>
-      <Header activePage='home' />
-      <div className='max-w-[124rem] mx-auto flex items-center w-full p-3 z-[1] xl:px-3'>
-        <div className='max-w-[50rem] grid grid-cols-2 gap-2'>
-          <h1 className='col-span-full font-bold text-3xl xl:text-5xl'>
-            {movie.title}
-          </h1>
+    <>
+      {isLoading ? (
+        <section className='h-[75vh] bg-blue-100 animate-pulse'>
+          <Header activePage='home' />
+        </section>
+      ) : (
+        <section
+          style={{
+            backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.backdrop_path}')`,
+          }}
+          className='relative h-[75vh] bg-[50%_10%] bg-cover bg-no-repeat grid text-base text-gray-100'
+        >
+          <div className='absolute top-[0] left-[0] h-full w-full bg-[rgba(17,24,39,0.5)]'></div>
+          <Header activePage='home' />
+          <div className='max-w-[124rem] mx-auto flex items-center w-full p-3 z-[1] xl:px-3'>
+            <div className='max-w-[50rem] grid grid-cols-2 gap-2'>
+              <h1 className='col-span-full font-bold text-3xl xl:text-5xl'>
+                {movie.title}
+              </h1>
 
-          <span className='col-span-2 flex items-center gap-1'>
-            Rating: {(movie.vote_average * 10).toPrecision(2)}%
-          </span>
+              <span className='col-span-2 flex items-center gap-1'>
+                Rating: {(movie.vote_average * 10).toPrecision(2)}%
+              </span>
 
-          <p className='col-span-full my-2'>{movie.overview}</p>
+              <p className='col-span-full my-2'>{movie.overview}</p>
 
-          <Link
-            to={`/movies/${movie.id}`}
-            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
-          >
-            <PlayCircle fontSize='large' sx={{ color: "#fff" }} />
-            Watch Trailer
-          </Link>
+              <Link
+                to={`/movies/${movie.id}`}
+                className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
+              >
+                <PlayCircle fontSize='large' sx={{ color: "#fff" }} />
+                Watch Trailer
+              </Link>
 
-          <button
-            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
-            type='button'
-            onClick={changeMovie}
-          >
-            Show next Movie
-            <ArrowForwardIos />
-          </button>
-        </div>
-      </div>
-    </section>
+              <button
+                className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
+                type='button'
+                onClick={changeMovie}
+              >
+                Show next Movie
+                <ArrowForwardIos />
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 
