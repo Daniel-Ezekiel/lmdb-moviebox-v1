@@ -76,10 +76,6 @@ const Carousel = ({
       </div>
     ));
 
-  if (isError) {
-    return <div>Error</div>;
-  }
-
   return (
     <section className='max-w-[124rem] mx-auto mt-5 p-3 text-base md:mt-8'>
       <div>
@@ -106,6 +102,12 @@ const Carousel = ({
               TV Shows
             </button>
           </div>
+        )}
+      </div>
+
+      <div>
+        {isError && (
+          <div>Could not retrieve {type === "tv" ? "TV Shows" : "Movies"}.</div>
         )}
       </div>
 
