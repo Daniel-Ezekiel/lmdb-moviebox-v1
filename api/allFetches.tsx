@@ -43,3 +43,14 @@ export async function getTopRated(type: string) {
     console.log(err);
   }
 }
+
+export async function getUpcoming() {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=6f687067231f0a6ceb9c0cae600a334c`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}

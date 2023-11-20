@@ -40,31 +40,32 @@ const Hero = () => {
       style={{
         backgroundImage: `url('https://image.tmdb.org/t/p/original${movie?.backdrop_path}')`,
       }}
-      className='relative h-[75vh] bg-[50%_10%] bg-cover bg-no-repeat grid text-base text-gray-100 before:absolute before:top-[0] before:left-[0] before:h-full before:w-full before:bg-[rgba(17,24,39,0.5)]'
+      className='relative h-[75vh] bg-[50%_10%] bg-cover bg-no-repeat grid text-base text-gray-100'
     >
+      <div className='absolute top-[0] left-[0] h-full w-full bg-[rgba(17,24,39,0.5)]'></div>
       <Header activePage='home' />
-      <div className='max-w-[124rem] mx-auto flex items-center w-full p-3 xl:px-3'>
+      <div className='max-w-[124rem] mx-auto flex items-center w-full p-3 z-[1] xl:px-3'>
         <div className='max-w-[50rem] grid grid-cols-2 gap-2'>
-          <h1 className='col-span-full font-bold text-3xl z-[1] xl:text-5xl'>
+          <h1 className='col-span-full font-bold text-3xl xl:text-5xl'>
             {movie.title}
           </h1>
 
-          <span className='col-span-2 flex items-center gap-1 z-[1]'>
+          <span className='col-span-2 flex items-center gap-1'>
             Rating: {(movie.vote_average * 10).toPrecision(2)}%
           </span>
 
-          <p className='col-span-full my-2 z-[1]'>{movie.overview}</p>
+          <p className='col-span-full my-2'>{movie.overview}</p>
 
           <Link
             to={`/movies/${movie.id}`}
-            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl z-[1]'
+            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
           >
             <PlayCircle fontSize='large' sx={{ color: "#fff" }} />
             Watch Trailer
           </Link>
 
           <button
-            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl z-[1]'
+            className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
             type='button'
             onClick={changeMovie}
           >

@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 
 const Carousel = ({
   sectionName,
+  multiType,
   queryFn,
 }: {
   sectionName: string;
+  multiType: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queryFn: (type: string) => any;
 }) => {
@@ -18,6 +20,16 @@ const Carousel = ({
     queryFn: () => queryFn(type),
   });
 
+  const formatDate: (inputDate: string | undefined) => string = (
+    inputDate: string | undefined
+  ) => {
+    const date = new Date(inputDate || "");
+    return new Intl.DateTimeFormat("default", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).format(date);
+  };
   const movies: React.ReactNode[] =
     type === "movie" &&
     data?.results.map((movie: MovieProps) => (
@@ -25,7 +37,7 @@ const Carousel = ({
         key={movie.id}
         className='min-w-[18rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
       >
-        <Link to={`/movies/${movie.id}`}>
+        <Link to={`/movie/${movie.id}`}>
           <img
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title}
@@ -33,10 +45,10 @@ const Carousel = ({
           />
         </Link>
         <div className='p-2'>
-          <Link to={`/movies/${movie.id}`}>
+          <Link to={`/movie/${movie.id}`}>
             <h3 className='font-semibold'>{movie.title}</h3>
           </Link>
-          <span>{movie.release_date}</span>
+          <span>{formatDate(movie.release_date)}</span>
         </div>
       </div>
     ));
@@ -48,7 +60,7 @@ const Carousel = ({
         key={tv.id}
         className='min-w-[18rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
       >
-        <Link to={`/movies/${tv.id}`}>
+        <Link to={`/tv/${tv.id}`}>
           <img
             src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
             alt={tv.name}
@@ -56,10 +68,10 @@ const Carousel = ({
           />
         </Link>
         <div className='p-2'>
-          <Link to={`/movies/${tv.id}`}>
+          <Link to={`/tv/${tv.id}`}>
             <h3 className='font-semibold'>{tv.name}</h3>
           </Link>
-          <span>{tv.first_air_date}</span>
+          <span>{formatDate(tv.first_air_date)}</span>
         </div>
       </div>
     ));
@@ -75,25 +87,30 @@ const Carousel = ({
   return (
     <section className='max-w-[124rem] mx-auto mt-5 p-3 text-base md:mt-8'>
       <div>
-        <h2 className='font-bold text-2xl xl:text-4xl'>{sectionName}</h2>
-        <div className='w-fit my-2 flex bg-white rounded-full shadow-lg border-gray-200 overflow-hidden'>
-          <button
-            onClick={() => setType("movie")}
-            className={`p-2 px-4 rounded-full ${
-              type === "movie" && "bg-rose text-white"
-            }`}
-          >
-            Movies
-          </button>
-          <button
-            onClick={() => setType("tv")}
-            className={`p-2 px-4 rounded-full ${
-              type === "tv" && "bg-rose text-white"
-            }`}
-          >
-            TV Shows
-          </button>
-        </div>
+        <h2 className='mb-2 font-bold text-2xl capitalize xl:text-4xl'>{`${sectionName} ${
+          type === "tv " ? "TV Shows" : "Movies"
+        }`}</h2>
+
+        {multiType && (
+          <div className='w-fit my-2 flex bg-white rounded-full shadow-lg border-gray-200 overflow-hidden'>
+            <button
+              onClick={() => setType("movie")}
+              className={`p-2 px-4 rounded-full ${
+                type === "movie" && "bg-rose text-white"
+              }`}
+            >
+              Movies
+            </button>
+            <button
+              onClick={() => setType("tv")}
+              className={`p-2 px-4 rounded-full ${
+                type === "tv" && "bg-rose text-white"
+              }`}
+            >
+              TV Shows
+            </button>
+          </div>
+        )}
       </div>
 
       <div className='flex gap-3 overflow-x-scroll'>{movies || tv}</div>
