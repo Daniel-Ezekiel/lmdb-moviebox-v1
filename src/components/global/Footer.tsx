@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className='mt-6 pt-8 bg-rose text-gray-100'>
-      <div className='w-p[124rem] mx-auto pt-3 grid justify-center gap-4 md:grid-cols-2 md:items-center'>
+      <div className='w-full pt-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 md:items-center'>
         <Link
           to='/'
           className='pb-4 flex justify-center items-center gap-1 font-semibold text-2xl'
@@ -27,7 +27,7 @@ const Footer = () => {
           </li>
         </ul>
 
-        <p className='p-2 bg-[rgb(151,15,49)] col-span-full text-sm text-center'>
+        <p className='py-2 bg-[rgb(151,15,49)] col-span-full text-sm text-center'>
           Built by{" "}
           <a
             href='https://danielezekiel.vercel.app'

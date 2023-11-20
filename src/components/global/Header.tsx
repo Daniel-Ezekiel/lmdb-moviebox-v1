@@ -4,6 +4,7 @@ import { MenuOpenRounded, MenuRounded } from "@mui/icons-material";
 
 const Header = ({ activePage }: { activePage: string }) => {
   const menuRef = useRef<HTMLUListElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
 
   // let mobileClassNames: string;
@@ -12,11 +13,13 @@ const Header = ({ activePage }: { activePage: string }) => {
     event?.preventDefault();
 
     if (!activeMenu) {
-      menuRef.current?.classList.remove("right-[-100vw]");
+      menuRef.current?.classList.remove("-right-[100vw]");
       menuRef.current?.classList.add("right-[0]");
+      hamburgerRef.current?.classList.add("fixed", "right-3", "z-[2]");
     } else {
-      menuRef.current?.classList.add("right-[-100vw]");
+      menuRef.current?.classList.add("-right-[100vw]");
       menuRef.current?.classList.remove("right-[0]");
+      hamburgerRef.current?.classList.remove("fixed", "right-3", "z-[2]");
     }
 
     setActiveMenu((prevMenuState: boolean) => !prevMenuState);
@@ -31,7 +34,7 @@ const Header = ({ activePage }: { activePage: string }) => {
         </Link>
 
         <ul
-          className='flex flex-col gap-8 font-semibold fixed pt-[10rem] px-[5rem] top-[0] w-[60vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 md:static md:grid md:grid-cols-3 md:bg-[rgba(0,0,0,0)] md:backdrop-blur-[0] md:h-fit md:w-fit md:p-4 lg:text-lg '
+          className='flex flex-col gap-8 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[60vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 md:static md:grid md:grid-cols-3 md:bg-[rgba(0,0,0,0)] md:backdrop-blur-[0] md:h-fit md:w-fit md:p-4 lg:text-lg '
           ref={menuRef}
         >
           <li className='w-fit hover:underline'>
@@ -54,7 +57,8 @@ const Header = ({ activePage }: { activePage: string }) => {
         <button
           type='button'
           onClick={openOrCloseMenu}
-          className='fixed right-[3rem] z-[2] md:hidden'
+          ref={hamburgerRef}
+          className='md:hidden'
         >
           {!activeMenu ? (
             <MenuRounded sx={{ fontSize: "3rem" }} />

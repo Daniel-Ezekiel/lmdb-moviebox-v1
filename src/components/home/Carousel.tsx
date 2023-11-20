@@ -88,7 +88,7 @@ const Carousel = ({
         }`}</h2>
 
         {multiType && (
-          <div className='w-fit my-2 flex bg-white rounded-full shadow-lg border-gray-200 overflow-hidden'>
+          <div className='w-fit my-2 flex bg-white rounded-full shadow-lg border border-gray-200 overflow-hidden'>
             <button
               onClick={() => setType("movie")}
               className={`p-2 px-4 rounded-full ${
