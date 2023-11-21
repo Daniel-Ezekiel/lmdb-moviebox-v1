@@ -1,5 +1,11 @@
+import MainLayout from "../layout/MainLayout";
+
 const Movie = () => {
-  return <div>Movie</div>;
+  return (
+    <MainLayout showHeader={true} activePage='movie' showFooter={true}>
+      <h1>Movie</h1>
+    </MainLayout>
+  );
 };
 
 export default Movie;

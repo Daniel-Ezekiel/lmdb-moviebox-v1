@@ -3,7 +3,7 @@ import axios from "axios";
 export async function getNowPlaying() {
   try {
     const res = await axios.get(
-      "https://api.themoviedb.org/3/movie/now_playing?api_key=6f687067231f0a6ceb9c0cae600a334c"
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=6f687067231f0a6ceb9c0cae600a334c`
     );
     return res.data;
   } catch (err) {

@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ activePage }: { activePage: string }) => {
   return (
-    <footer className='mt-6 pt-8 bg-rose text-gray-100'>
+    <footer
+      className={`pt-8 ${
+        activePage === "home" ? "bg-rose" : "bg-blue-500"
+      } text-gray-100`}
+    >
       <div className='w-full pt-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 md:items-center'>
         <Link
           to='/'
@@ -27,7 +31,11 @@ const Footer = () => {
           </li>
         </ul>
 
-        <p className='py-2 bg-[rgb(151,15,49)] col-span-full text-sm text-center'>
+        <p
+          className={`py-2 ${
+            activePage === "home" ? "bg-[rgb(151,15,49)]" : "bg-blue-400"
+          } col-span-full text-sm text-center`}
+        >
           Built by{" "}
           <a
             href='https://danielezekiel.vercel.app'
