@@ -15,14 +15,12 @@ function MainLayout({
       {showHeader && <Header activePage={activePage} />}
 
       <main
-        className={`w-full min-h-[90rem] transition-all ease-in-out duration-300 ${
-          activePage !== "home" && "bg-blue-400 text-white"
-        }`}
+        className={`w-full min-h-[90rem] pb-6 transition-all ease-in-out duration-300`}
       >
         {children}
       </main>
 
-      {showFooter && <Footer activePage={activePage} />}
+      {showFooter && <Footer />}
     </div>
   );
 }

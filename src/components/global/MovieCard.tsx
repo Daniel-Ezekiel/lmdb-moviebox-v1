@@ -16,13 +16,13 @@ const MovieCard = ({ movie }: { movie: MovieProps }) => {
   return (
     <div
       key={movie.id}
-      className='min-w-[15rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
+      className='min-w-[18rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link to={`/movie/${movie.id}`}>
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           alt={movie.title}
-          className='min-h-[27.8rem] object-cover'
+          className='min-h-[27.8rem] min-w-full object-cover'
         />
       </Link>
       <div className='p-2 text-base'>

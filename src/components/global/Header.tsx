@@ -30,9 +30,7 @@ const Header = ({ activePage }: { activePage: string }) => {
   return (
     <header
       className={`${
-        activePage === "home"
-          ? "z-[2] bg-transparent"
-          : "bg-blue-500 text-white"
+        activePage === "home" ? "z-[2] bg-transparent" : "bg-rose text-white"
       } h-fit shadow-lg`}
     >
       <nav className='max-w-[124rem] mx-auto flex justify-between items-center p-3'>
@@ -46,7 +44,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           ref={menuRef}
         >
           <li
-            className='w-fit relative text-white'
+            className='w-fit relative text-base text-white'
             onMouseEnter={() =>
               movieCategoryRef.current?.classList.remove("hidden")
             }
@@ -92,7 +90,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           </li>
 
           <li
-            className='w-fit relative text-white'
+            className='w-fit relative text-base text-white'
             onMouseEnter={() =>
               tvCategoryRef.current?.classList.remove("hidden")
             }
