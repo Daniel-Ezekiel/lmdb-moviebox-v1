@@ -48,6 +48,7 @@ export default {
       rose: "#be123c",
       "gray-100": "hsl(0, 0%, 98%)",
       "gray-200": "rgb(238, 238, 238)",
+      "gray-300": "#cfcfcf",
       "gray-700": "hsl(0, 0%, 52%)",
       white: "hsl(0, 0%, 100%)",
     },

@@ -17,9 +17,10 @@ const People = () => {
 
   return (
     <MainLayout showHeader={true} activePage='movies' showFooter={true}>
-      <section className='max-w-[124rem] mx-auto p-3 grid grid-cols-2 justify-between items-center gap-4 md:pt-[5rem]'>
+      <section className='max-w-[124rem] mx-auto p-3 pt-6 md:pt-[5rem]'>
         <h1 className='flex gap-2 font-semibold text-4xl'>
-          People <span className='font-normal text-sm text-rose'>popular</span>
+          People{" "}
+          <span className='w-fit font-normal text-sm text-rose'>popular</span>
         </h1>
       </section>
 

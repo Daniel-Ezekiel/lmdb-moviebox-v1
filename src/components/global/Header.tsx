@@ -40,7 +40,7 @@ const Header = ({ activePage }: { activePage: string }) => {
         </Link>
 
         <ul
-          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[60vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl shadow-blue-100 md:shadow-none md:static md:grid md:grid-cols-3 md:bg-[rgba(0,0,0,0)] md:backdrop-blur-[0] md:h-fit md:w-fit md:p-4 md:gap-8 lg:text-lg '
+          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl shadow-blue-100 md:shadow-none md:static md:grid md:grid-cols-3 md:bg-[rgba(0,0,0,0)] md:backdrop-blur-[0] md:h-fit md:w-fit md:p-4 md:gap-8 lg:text-lg '
           ref={menuRef}
         >
           <li
@@ -52,7 +52,7 @@ const Header = ({ activePage }: { activePage: string }) => {
               movieCategoryRef.current?.classList.add("hidden")
             }
           >
-            <span className='text-gray-700'>01.</span> Movies
+            <span className='text-gray-300'>01.</span> Movies
             <ul
               className='hidden pl-5 text-gray-200 md:absolute md:min-w-[13rem] -md:bottom-3 md:py-2 md:px-4 md:rounded-lg md:bg-white md:text-blue-100'
               ref={movieCategoryRef}
@@ -96,7 +96,7 @@ const Header = ({ activePage }: { activePage: string }) => {
             }
             onMouseLeave={() => tvCategoryRef.current?.classList.add("hidden")}
           >
-            <span className='text-gray-700'>02.</span> TV Shows
+            <span className='text-gray-300'>02.</span> TV Shows
             <ul
               className='hidden pl-5 text-gray-200 md:absolute md:min-w-[13rem] -md:bottom-3 md:py-2 md:px-4 md:rounded-lg md:bg-white md:text-blue-100'
               ref={tvCategoryRef}
@@ -134,7 +134,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           </li>
           <li className='w-fit'>
             <Link to='/people' className='w-fit text-base'>
-              <span className='text-gray-700'>03.</span> People
+              <span className='text-gray-300'>03.</span> People
             </Link>
           </li>
         </ul>

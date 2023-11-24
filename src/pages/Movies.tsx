@@ -20,10 +20,10 @@ const Movies = () => {
 
   return (
     <MainLayout showHeader={true} activePage='movies' showFooter={true}>
-      <section className='max-w-[124rem] mx-auto p-3 grid grid-cols-2 justify-between items-center gap-4 md:pt-[5rem]'>
+      <section className='max-w-[124rem] mx-auto p-3 pt-6 md:pt-[5rem]'>
         <h1 className='flex gap-2 font-semibold text-4xl'>
           Movies{" "}
-          <span className='font-normal text-sm text-rose'>
+          <span className='w-fit font-normal text-sm text-rose'>
             {category?.split("-").join(" ")}
           </span>
         </h1>
