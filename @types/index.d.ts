@@ -33,3 +33,12 @@ export interface TVProps {
   first_air_date?: string;
   vote_average: number;
 }
+
+export interface PersonProps {
+  id: number;
+  gender: number;
+  original_name: string;
+  known_for_department: string;
+  profile_path: string;
+  known_for: MovieProps[] | TVProps[];
+}

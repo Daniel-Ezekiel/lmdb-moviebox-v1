@@ -16,7 +16,7 @@ const MovieCard = ({ movie }: { movie: MovieProps }) => {
   return (
     <div
       key={movie.id}
-      className='min-w-[18rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='min-w-[17rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link to={`/movie/${movie.id}`}>
         <img

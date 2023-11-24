@@ -16,7 +16,7 @@ const TVCard = ({ tv }: { tv: TVProps }) => {
   return (
     <div
       key={tv.id}
-      className='min-w-[18rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='min-w-[17rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link to={`/tv/${tv.id}`}>
         <img

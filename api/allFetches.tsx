@@ -76,3 +76,15 @@ export async function getByURL(
     console.log(err);
   }
 }
+
+// Fetch Popular people
+export async function getPopularPeople() {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/person/popular?api_key=6f687067231f0a6ceb9c0cae600a334c`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
