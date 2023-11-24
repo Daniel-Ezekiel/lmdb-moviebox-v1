@@ -7,6 +7,7 @@ import Movies from "./pages/Movies";
 import TVShows from "./pages/TVShows";
 import People from "./pages/People";
 import TVShow from "./pages/TVShow";
+import Person from "./pages/Person";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -35,10 +36,10 @@ const router = createBrowserRouter([
     path: "/tv/:id",
     element: <TVShow />,
   },
-  // {
-  //   path: "/tvshow/:id",
-  //   element: <Movie />,
-  // },
+  {
+    path: "/person/:id",
+    element: <Person />,
+  },
 ]);
 
 function App() {
