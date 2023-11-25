@@ -45,22 +45,25 @@ const Movie = () => {
             <section className='md:flex'>
               <div className='relative mx-auto -mt-[8rem] pb-5 border-b-2 border-gray-200 grid justify-center items-center z-[1] md:border-b-[0] md:-mt-[15rem]'>
                 <div className='p-3 pt-[0] grid justify-center items-center gap-2 text-center'>
-                  <div className='w-[18rem] place-self-center lg:w-[22rem]'>
+                  <div className='relative w-[18rem] place-self-center lg:w-[22rem]'>
                     <img
                       src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                       alt={data?.title}
                       className='shadow-xl rounded-2xl'
                     />
+                    <span
+                      className='absolute -bottom-5 right-1/2 translate-x-1/2 w-9 h-9 place-self-center p-2 rounded-full bg-rose font-medium text-base text-gray-100'
+                      title='Movie Rating'
+                    >{`${Math.ceil(data?.vote_average * 10)}%`}</span>
                   </div>
 
-                  <div className='px-2 max-w-[30rem]'>
+                  <div className='mt-4 px-2 max-w-[30rem]'>
                     <h1 className='font-semibold text-xl text-rose leading-[1.1]'>
                       {data?.title}
                       <span> ({data?.release_date.slice(0, 4)})</span>
                     </h1>
                     <span className='italic text-base'>{data?.tagline}</span>
                     <div className='mt-1 flex justify-center items-center gap-1 font-medium text-sm'>
-                      <span>{`${Math.ceil(data?.vote_average * 10)}%`}</span>•
                       <span className='flex gap-1'>
                         {formatDate(data?.release_date)} ({data?.status})
                       </span>
