@@ -42,3 +42,37 @@ export interface PersonProps {
   profile_path: string;
   known_for: MovieProps[] | TVProps[];
 }
+
+export interface MovieDetailsProps {
+  id: number;
+  original_title: string;
+  overview: string;
+  tagline: string;
+  release_date: string;
+  runtime: number;
+  backdrop_path: string;
+  vote_average: number;
+  genres: { id: number; name: string }[];
+}
+
+export interface TVDetailsProps {
+  id: number;
+  original_title: string;
+  overview: string;
+  tagline: string;
+  release_date: string;
+  runtime: number;
+  backdrop_path: string;
+  vote_average: number;
+  genres: [];
+}
+
+export interface CastMemberProps {
+  id: number;
+  cast_id: number;
+  credit_id: string;
+  name: string;
+  original_name: string;
+  character: string;
+  profile_path: string;
+}

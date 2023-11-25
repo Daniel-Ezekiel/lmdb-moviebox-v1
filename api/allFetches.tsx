@@ -88,3 +88,27 @@ export async function getPopularPeople() {
     console.log(err);
   }
 }
+
+// Get single movie details
+export async function getMovieDetails(movieID: string) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}?api_key=6f687067231f0a6ceb9c0cae600a334c`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get movie credit details
+export async function getMovieCredits(movieID: string) {
+  try {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=6f687067231f0a6ceb9c0cae600a334c`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "multistep-form-with-redux-toolkit",
+  "name": "little-movie-database-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -38,3 +38,4 @@
     "vite": "^4.4.5"
   }
 }
+

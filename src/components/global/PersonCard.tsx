@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { MovieProps, PersonProps, TVProps } from "../../../@types";
 import React from "react";
 
-const TVCard = ({ person }: { person: PersonProps }) => {
+const PersonCard = ({ person }: { person: PersonProps }) => {
   const knownFor: React.ReactNode[] = person.known_for.map(
     (knownFor, i, arr) => (
       <span key={knownFor.id}>
@@ -36,4 +36,4 @@ const TVCard = ({ person }: { person: PersonProps }) => {
   );
 };
 
-export default TVCard;
+export default PersonCard;
