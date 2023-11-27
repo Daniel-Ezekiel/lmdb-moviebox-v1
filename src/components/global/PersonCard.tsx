@@ -12,8 +12,6 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
     )
   );
 
-  console.log(person);
-
   return (
     <div
       key={person.id}

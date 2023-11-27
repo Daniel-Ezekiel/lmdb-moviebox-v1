@@ -112,3 +112,27 @@ export async function getMovieCredits(movieID: string) {
     console.log(err);
   }
 }
+
+// Get trailer video
+export async function getTrailerVideo(title: string) {
+  try {
+    const res = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/search?q=${title}+trailer&key=AIzaSyDJ7tq6AzfN5SOm2ZL9Clov3kmdGzq35y4`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get recommendations
+export async function getRecommendations(type: string, id: number) {
+  const url: string = `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}

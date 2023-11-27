@@ -20,8 +20,12 @@ export interface MovieProps {
   poster_path: string;
   title?: string;
   overview: string;
-  release_date?: string;
+  release_date: string;
   vote_average: number;
+  tagline: string;
+  status: string;
+  genres: { id: number; name: string };
+  runtime: number;
 }
 
 export interface TVProps {

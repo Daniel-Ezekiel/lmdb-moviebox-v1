@@ -1,15 +1,14 @@
 // import { MovieDetailsProps } from "../../@types";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "../../api/allFetches";
-import Carousel from "../components/movie/Carousel";
+import Carousel from "../components/movie-tv/Carousel";
+import Trailer from "../components/global/Trailer";
+import { ArrowForwardIos } from "@mui/icons-material";
+import Recommendations from "../components/movie-tv/Recommendations";
+import SummaryCard from "../components/global/SummaryCard";
 // import { MovieDetailsProps } from "../../@types";
-
-type GenreProps = {
-  id: number;
-  name: string;
-};
 
 const Movie = () => {
   const { id } = useParams();
@@ -20,15 +19,6 @@ const Movie = () => {
   });
 
   console.log(id, data);
-
-  const formatDate: (inputDate: string) => string = (inputDate: string) => {
-    const date = new Date(inputDate || "");
-    return new Intl.DateTimeFormat("default", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-  };
 
   return (
     <MainLayout showHeader={true} activePage='movie' showFooter={true}>
@@ -43,7 +33,8 @@ const Movie = () => {
 
           <div className='xl:max-w-[124rem] mx-auto md:grid-cols-[auto,_1fr] md:gap-3'>
             <section className='md:flex'>
-              <div className='relative mx-auto -mt-[8rem] pb-5 border-b-2 border-gray-200 grid justify-center items-center z-[1] md:border-b-[0] md:-mt-[15rem]'>
+              <SummaryCard movieOrTV={data} />
+              {/* <div className='relative mx-auto -mt-[8rem] pb-5 border-b-2 border-gray-200 grid justify-center items-center z-[1] md:border-b-[0] md:-mt-[15rem]'>
                 <div className='p-3 pt-[0] grid justify-center items-center gap-2 text-center'>
                   <div className='relative w-[18rem] place-self-center lg:w-[22rem]'>
                     <img
@@ -86,7 +77,7 @@ const Movie = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className='mx-auto p-3 flex flex-col gap-4 md:max-w-[70%]'>
                 <div>
@@ -97,16 +88,28 @@ const Movie = () => {
                 </div>
 
                 <div>
-                  <h2 className='mb-2 font-semibold text-xl text-rose lg:text-2xl'>
+                  <h2 className='flex justify-between items-end mb-2 font-semibold text-xl text-rose lg:text-2xl'>
                     Main Cast
+                    <Link to='' className='ml-auto text-base hover:underline'>
+                      See full cast and crew <ArrowForwardIos />
+                    </Link>
                   </h2>
+
                   <Carousel movieID={data?.id} category='cast' />
                 </div>
               </div>
             </section>
 
-            <section>
-              <h2>Watch trailer</h2>
+            <section className='mt-6 border-t-2 border-gray-200 p-3'>
+              <h2 className='pt-4 font-semibold text-xl text-rose'>
+                Watch trailer
+              </h2>
+
+              <Trailer title={data?.title.toLowerCase().split(" ").join("-")} />
+            </section>
+
+            <section className='mt-6 border-t-2 border-gray-200 p-3'>
+              <Recommendations id={data?.id} type='movie' />
             </section>
           </div>
         </>
