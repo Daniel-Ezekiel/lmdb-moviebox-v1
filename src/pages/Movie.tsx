@@ -4,10 +4,10 @@ import MainLayout from "../layout/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "../../api/allFetches";
 import Carousel from "../components/movie-tv/Carousel";
-import Trailer from "../components/global/Trailer";
+import Trailer from "../components/movie-tv/Trailer";
 import { ArrowForwardIos } from "@mui/icons-material";
 import Recommendations from "../components/movie-tv/Recommendations";
-import SummaryCard from "../components/global/SummaryCard";
+import SummaryCard from "../components/movie-tv/SummaryCard";
 // import { MovieDetailsProps } from "../../@types";
 
 const Movie = () => {
