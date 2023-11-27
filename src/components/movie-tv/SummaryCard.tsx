@@ -5,7 +5,13 @@ type GenreProps = {
   name: string;
 };
 
-const SummaryCard = ({ movieOrTV }: { movieOrTV: MovieProps | TVProps }) => {
+const SummaryCard = ({
+  type,
+  movieOrTV,
+}: {
+  type: string;
+  movieOrTV: MovieProps | TVProps;
+}) => {
   const formatDate: (inputDate: string) => string = (inputDate: string) => {
     const date = new Date(inputDate || "");
     return new Intl.DateTimeFormat("default", {
@@ -21,7 +27,9 @@ const SummaryCard = ({ movieOrTV }: { movieOrTV: MovieProps | TVProps }) => {
         <div className='relative w-[18rem] place-self-center lg:w-[22rem]'>
           <img
             src={`https://image.tmdb.org/t/p/original/${movieOrTV?.poster_path}`}
-            alt={(movieOrTV as MovieProps)?.title}
+            alt={
+              (movieOrTV as MovieProps)?.title || (movieOrTV as TVProps)?.name
+            }
             className='shadow-xl rounded-2xl'
           />
           <span
@@ -32,10 +40,13 @@ const SummaryCard = ({ movieOrTV }: { movieOrTV: MovieProps | TVProps }) => {
 
         <div className='mt-4 px-2 max-w-[30rem]'>
           <h1 className='font-semibold text-xl text-rose leading-[1.1]'>
-            {(movieOrTV as MovieProps)?.title}
+            {(movieOrTV as MovieProps)?.title || (movieOrTV as TVProps)?.name}
             <span>
               {" "}
-              ({(movieOrTV as MovieProps)?.release_date?.slice(0, 4)})
+              (
+              {(movieOrTV as MovieProps)?.release_date?.slice(0, 4) ||
+                (movieOrTV as TVProps)?.first_air_date?.slice(0, 4)}
+              )
             </span>
           </h1>
           <span className='italic text-base'>
@@ -43,16 +54,23 @@ const SummaryCard = ({ movieOrTV }: { movieOrTV: MovieProps | TVProps }) => {
           </span>
           <div className='mt-1 flex justify-center items-center gap-1 font-medium text-sm'>
             <span className='flex gap-1'>
-              {formatDate((movieOrTV as MovieProps)?.release_date)} (
-              {(movieOrTV as MovieProps)?.status})
+              {type === "movie"
+                ? formatDate((movieOrTV as MovieProps)?.release_date)
+                : formatDate((movieOrTV as TVProps)?.first_air_date)}
+
+              {type === "movie" && (movieOrTV as MovieProps)?.status}
             </span>
             •
             <span>
-              {`${Math.floor(
-                (movieOrTV as MovieProps)?.runtime / 60
-              )}h ${Math.ceil(
-                (movieOrTV as MovieProps)?.runtime % 60
-              )}mins`}{" "}
+              {type === "tv"
+                ? `${(movieOrTV as TVProps).number_of_seasons} seasons (${
+                    (movieOrTV as TVProps).number_of_episodes
+                  } episodes)`
+                : `${Math.floor(
+                    (movieOrTV as MovieProps)?.runtime / 60
+                  )}h ${Math.ceil(
+                    (movieOrTV as MovieProps)?.runtime % 60
+                  )}mins`}{" "}
             </span>
           </div>
           <div className='mt-2'>

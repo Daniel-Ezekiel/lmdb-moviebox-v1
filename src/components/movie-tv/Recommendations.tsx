@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { MovieProps, TVProps } from "../../../@types";
-import { getRecommendations } from "../../../api/allFetches";
+import { getSimilarRecommendations } from "../../../api/allFetches";
 import MovieCard from "../global/MovieCard";
 import TVCard from "../global/TVCard";
 
 const Recommendations = ({ type, id }: { type: string; id: number }) => {
   const { isLoading, isError, data } = useQuery({
     queryKey: [`recommendations-${type}-${id}`],
-    queryFn: () => getRecommendations(type, id),
+    queryFn: () => getSimilarRecommendations(type, id),
   });
   return (
     <div>
@@ -16,6 +16,11 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
       </h2>
 
       <div className='mt-3 flex gap-3 overflow-x-auto'>
+        {!data?.results.length && (
+          <p className='w-full text-xl text-center'>
+            No recommendations to show
+          </p>
+        )}
         {!isLoading &&
           !isError &&
           data?.results.map((movieOrTV: MovieProps | TVProps) => {

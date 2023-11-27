@@ -34,8 +34,10 @@ export interface TVProps {
   poster_path: string;
   name?: string;
   overview: string;
-  first_air_date?: string;
+  first_air_date: string;
   vote_average: number;
+  number_of_seasons: number;
+  number_of_episodes: number;
 }
 
 export interface PersonProps {

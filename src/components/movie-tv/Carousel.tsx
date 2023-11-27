@@ -1,18 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMovieCredits } from "../../../api/allFetches";
+import { getMovieOrTvCredits } from "../../../api/allFetches";
 import { CastMemberProps } from "../../../@types";
 import CastMemberCard from "../global/CastMemberCard";
 
 const Carousel = ({
   movieID,
+  type,
   category,
 }: {
   movieID: string;
+  type: string;
   category: string;
 }) => {
   const { isLoading, isError, data } = useQuery({
-    queryKey: [`movie-credits-${movieID}`],
-    queryFn: () => getMovieCredits(movieID),
+    queryKey: [`movie-credits-${type}-${movieID}`],
+    queryFn: () => getMovieOrTvCredits(type, movieID),
   });
 
   console.log(!isLoading && !isError && data["cast"], data, category);

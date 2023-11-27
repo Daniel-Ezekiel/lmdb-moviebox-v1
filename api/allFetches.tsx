@@ -90,10 +90,10 @@ export async function getPopularPeople() {
 }
 
 // Get single movie details
-export async function getMovieDetails(movieID: string) {
+export async function getMovieOrTvDetails(type: string, movieID: string) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieID}?api_key=6f687067231f0a6ceb9c0cae600a334c`
+      `https://api.themoviedb.org/3/${type}/${movieID}?api_key=6f687067231f0a6ceb9c0cae600a334c`
     );
     return res.data;
   } catch (err) {
@@ -102,10 +102,10 @@ export async function getMovieDetails(movieID: string) {
 }
 
 // Get movie credit details
-export async function getMovieCredits(movieID: string) {
+export async function getMovieOrTvCredits(type: string, movieID: string) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=6f687067231f0a6ceb9c0cae600a334c`
+      `https://api.themoviedb.org/3/${type}/${movieID}/credits?api_key=6f687067231f0a6ceb9c0cae600a334c`
     );
     return res.data;
   } catch (err) {
@@ -126,8 +126,8 @@ export async function getTrailerVideo(title: string) {
 }
 
 // Get recommendations
-export async function getRecommendations(type: string, id: number) {
-  const url: string = `https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+export async function getSimilarRecommendations(type: string, id: number) {
+  const url: string = `https://api.themoviedb.org/3/${type}/${id}/similar?api_key=6f687067231f0a6ceb9c0cae600a334c`;
 
   try {
     const res = await axios.get(url);
