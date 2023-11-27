@@ -8,6 +8,7 @@ import TVShows from "./pages/TVShows";
 import People from "./pages/People";
 import TVShow from "./pages/TVShow";
 import Person from "./pages/Person";
+import CastAndCrew from "./pages/CastAndCrew";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -33,8 +34,16 @@ const router = createBrowserRouter([
     element: <Movie />,
   },
   {
+    path: "/movie/:id/cast-and-crew",
+    element: <CastAndCrew type='movie' />,
+  },
+  {
     path: "/tv/:id",
     element: <TVShow />,
+  },
+  {
+    path: "/tv/:id/cast-and-crew",
+    element: <CastAndCrew type='tv' />,
   },
   {
     path: "/person/:id",

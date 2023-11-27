@@ -46,7 +46,10 @@ const Movie = () => {
                 <div>
                   <h2 className='flex justify-between items-end mb-2 font-semibold text-xl text-rose lg:text-2xl'>
                     Main Cast
-                    <Link to='' className='ml-auto text-base hover:underline'>
+                    <Link
+                      to='./cast-and-crew'
+                      className='ml-auto text-base hover:underline'
+                    >
                       See full cast and crew <ArrowForwardIos />
                     </Link>
                   </h2>

@@ -8,7 +8,7 @@ const Trailer = ({ title }: { title: string }) => {
   });
 
   const trailerId: string = !isLoading && !isError && data.items[0].id.videoId;
-  console.log(!isLoading && data.items[0].id.videoId);
+  console.log(!isLoading && data?.items[0].id.videoId);
 
   return (
     <div className='h-[22rem] md:h-[40rem] xl:h-[50rem]'>
