@@ -1,10 +1,10 @@
-import { TVProps } from "../../@types";
+import { MovieProps, TVProps } from "../../@types";
 import MainLayout from "../layout/MainLayout";
 import { getByURL } from "../../api/allFetches";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import TVCard from "../components/global/TVCard";
 import SkeletonCard from "../components/global/SkeletonCard";
+import MovieTvCard from "../components/global/MovieTvCard";
 
 const Movies = () => {
   const { category } = useParams();
@@ -14,9 +14,11 @@ const Movies = () => {
     queryFn: () => getByURL("tv", category?.split("-").join("_")),
   });
 
-  const tvShows: React.ReactNode[] = data?.results.map((tv: TVProps) => (
-    <TVCard key={tv.id} tv={tv} />
-  ));
+  const tvShows: React.ReactNode[] = data?.results.map(
+    (movieOrTv: MovieProps | TVProps) => (
+      <MovieTvCard key={movieOrTv.id} type='tv' movieOrTv={movieOrTv} />
+    )
+  );
 
   return (
     <MainLayout showHeader={true} activePage='movies' showFooter={true}>

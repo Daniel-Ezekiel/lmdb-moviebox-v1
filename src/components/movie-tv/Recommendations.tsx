@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { MovieProps, TVProps } from "../../../@types";
 import { getSimilarRecommendations } from "../../../api/allFetches";
-import MovieCard from "../global/MovieCard";
-import TVCard from "../global/TVCard";
+import MovieTvCard from "../global/MovieTvCard";
 
 const Recommendations = ({ type, id }: { type: string; id: number }) => {
   const { isLoading, isError, data } = useQuery({
@@ -26,10 +25,20 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
           data?.results.map((movieOrTV: MovieProps | TVProps) => {
             if (type === "movie") {
               return (
-                <MovieCard key={movieOrTV.id} movie={movieOrTV as MovieProps} />
+                <MovieTvCard
+                  key={movieOrTV.id}
+                  type='movie'
+                  movieOrTv={movieOrTV as MovieProps}
+                />
               );
             } else {
-              return <TVCard key={movieOrTV.id} tv={movieOrTV as TVProps} />;
+              return (
+                <MovieTvCard
+                  key={movieOrTV.id}
+                  type='tv'
+                  movieOrTv={movieOrTV as TVProps}
+                />
+              );
             }
           })}
       </div>
