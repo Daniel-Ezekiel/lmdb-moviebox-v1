@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { MovieProps, TVProps } from "../../../@types";
-import MovieCard from "../global/MovieCard";
-import TVCard from "../global/TVCard";
+// import MovieCard from "../global/MovieCard";
+// import TVCard from "../global/TVCard";
 import SkeletonCard from "../global/SkeletonCard";
+import MovieTvCard from "../global/MovieTvCard";
 
 const Carousel = ({
   sectionName,
@@ -22,15 +23,15 @@ const Carousel = ({
     queryFn: () => queryFn(type),
   });
 
-  const movies: React.ReactNode[] =
-    type === "movie" &&
-    data?.results.map((movie: MovieProps) => (
-      <MovieCard key={movie.id} movie={movie} />
-    ));
+  // const movies: React.ReactNode[] =
+  //   type === "movie" &&
+  //   data?.results.map((movie: MovieProps) => (
+  //     <MovieCard key={movie.id} movie={movie} />
+  //   ));
 
-  const tv: React.ReactNode[] =
-    type === "tv" &&
-    data?.results.map((tv: TVProps) => <TVCard key={tv.id} tv={tv} />);
+  // const tv: React.ReactNode[] =
+  //   type === "tv" &&
+  //   data?.results.map((tv: TVProps) => <TVCard key={tv.id} tv={tv} />);
 
   return (
     <section className='max-w-[124rem] mx-auto mt-5 p-3 text-base md:mt-8'>
@@ -72,7 +73,13 @@ const Carousel = ({
           ? Array(20)
               .fill("")
               .map((_, i) => <SkeletonCard key={i} />)
-          : movies || tv}
+          : data?.results.map((movieOrTv: MovieProps | TVProps) => (
+              <MovieTvCard
+                type={type}
+                key={movieOrTv.id}
+                movieOrTv={movieOrTv}
+              />
+            ))}
       </div>
     </section>
   );

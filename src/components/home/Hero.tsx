@@ -70,7 +70,7 @@ const Hero = () => {
               <p className='col-span-full my-2'>{movie.overview}</p>
 
               <Link
-                to={`/movies/${movie.id}`}
+                to={`/movie/${movie.id}`}
                 className='flex gap-1 justify-center items-center p-2 bg-rose text-white rounded-xl'
               >
                 <PlayCircle fontSize='large' sx={{ color: "#fff" }} />

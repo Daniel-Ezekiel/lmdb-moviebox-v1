@@ -1,4 +1,5 @@
 import { MovieProps, TVProps } from "../../../@types";
+import { formatDate } from "../../../utils/formatDate";
 
 type GenreProps = {
   id: number;
@@ -12,15 +13,6 @@ const SummaryCard = ({
   type: string;
   movieOrTV: MovieProps | TVProps;
 }) => {
-  const formatDate: (inputDate: string) => string = (inputDate: string) => {
-    const date = new Date(inputDate || "");
-    return new Intl.DateTimeFormat("default", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-  };
-
   return (
     <div className='relative mx-auto -mt-[8rem] pb-5 border-b-2 border-gray-200 grid justify-center items-center z-[1] md:border-b-[0] md:-mt-[15rem]'>
       <div className='p-3 pt-[0] grid justify-center items-center gap-2 text-center'>
@@ -45,7 +37,8 @@ const SummaryCard = ({
               {" "}
               (
               {(movieOrTV as MovieProps)?.release_date?.slice(0, 4) ||
-                (movieOrTV as TVProps)?.first_air_date?.slice(0, 4)}
+                (movieOrTV as TVProps)?.first_air_date?.slice(0, 4) ||
+                "No date"}
               )
             </span>
           </h1>
