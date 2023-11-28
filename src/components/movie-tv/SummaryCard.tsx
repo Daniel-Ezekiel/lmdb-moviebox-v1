@@ -56,8 +56,7 @@ const SummaryCard = ({
             <span className='flex gap-1'>
               {type === "movie"
                 ? formatDate((movieOrTV as MovieProps)?.release_date)
-                : formatDate((movieOrTV as TVProps)?.first_air_date)}
-
+                : formatDate((movieOrTV as TVProps)?.first_air_date)}{" "}
               {type === "movie" && (movieOrTV as MovieProps)?.status}
             </span>
             •

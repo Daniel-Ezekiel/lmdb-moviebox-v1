@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { TVProps } from "../../../@types";
 
 const TVCard = ({ tv }: { tv: TVProps }) => {
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate || "");
-    return new Intl.DateTimeFormat("default", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-  }
+  // function formatDate(inputDate: string) {
+  //   const date = new Date(inputDate || "");
+  //   return new Intl.DateTimeFormat("default", {
+  //     month: "short",
+  //     day: "numeric",
+  //     year: "numeric",
+  //   }).format(date);
+  // }
 
   return (
     <div
@@ -27,7 +27,7 @@ const TVCard = ({ tv }: { tv: TVProps }) => {
         <Link to={`/tv/${tv.id}`}>
           <h3 className='font-semibold'>{tv.name}</h3>
         </Link>
-        <span>{formatDate(tv.first_air_date as string)}</span>
+        <span>{tv.first_air_date}</span>
       </div>
     </div>
   );

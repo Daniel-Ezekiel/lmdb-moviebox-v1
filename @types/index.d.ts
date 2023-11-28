@@ -38,6 +38,7 @@ export interface TVProps {
   vote_average: number;
   number_of_seasons: number;
   number_of_episodes: number;
+  status: string;
 }
 
 export interface PersonProps {

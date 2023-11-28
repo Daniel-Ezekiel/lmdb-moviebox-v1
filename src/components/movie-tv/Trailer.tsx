@@ -3,7 +3,7 @@ import { getTrailerVideo } from "../../../api/allFetches";
 
 const Trailer = ({ title }: { title: string }) => {
   const { isLoading, isError, data } = useQuery({
-    queryKey: [`movie-trailer-${title}`],
+    queryKey: [`${title}-trailer`],
     queryFn: () => getTrailerVideo(title),
   });
 

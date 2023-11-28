@@ -25,9 +25,11 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
           !isError &&
           data?.results.map((movieOrTV: MovieProps | TVProps) => {
             if (type === "movie") {
-              return <MovieCard movie={movieOrTV as MovieProps} />;
+              return (
+                <MovieCard key={movieOrTV.id} movie={movieOrTV as MovieProps} />
+              );
             } else {
-              return <TVCard tv={movieOrTV as TVProps} />;
+              return <TVCard key={movieOrTV.id} tv={movieOrTV as TVProps} />;
             }
           })}
       </div>

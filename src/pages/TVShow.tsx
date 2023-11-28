@@ -14,7 +14,7 @@ const TVShow = () => {
   const { id } = useParams();
 
   const { isLoading, isError, data } = useQuery({
-    queryKey: [`movie-${id}`],
+    queryKey: [`tv-show-${id}`],
     queryFn: () => getMovieOrTvDetails("tv", id as string),
   });
 

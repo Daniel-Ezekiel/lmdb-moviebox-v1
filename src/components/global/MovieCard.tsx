@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { MovieProps } from "../../../@types";
 
 const MovieCard = ({ movie }: { movie: MovieProps }) => {
-  function formatDate(inputDate: string) {
-    const date = new Date(inputDate || "");
-    return new Intl.DateTimeFormat("default", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).format(date);
-  }
+  // function formatDate(inputDate: string) {
+  //   const date = new Date(inputDate || "");
+  //   return new Intl.DateTimeFormat("default", {
+  //     month: "short",
+  //     day: "numeric",
+  //     year: "numeric",
+  //   }).format(date);
+  // }
 
   return (
     <div
@@ -27,7 +27,7 @@ const MovieCard = ({ movie }: { movie: MovieProps }) => {
         <Link to={`/movie/${movie.id}`}>
           <h3 className='font-semibold'>{movie.title}</h3>
         </Link>
-        <span>{formatDate(movie.release_date)}</span>
+        <span>{movie.release_date}</span>
       </div>
     </div>
   );
