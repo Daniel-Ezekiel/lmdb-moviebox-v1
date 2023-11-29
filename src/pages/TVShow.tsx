@@ -18,8 +18,6 @@ const TVShow = () => {
     queryFn: () => getMovieOrTvDetails("tv", id as string),
   });
 
-  console.log(id, data);
-
   return (
     <MainLayout showHeader={true} activePage='movie' showFooter={true}>
       {!isLoading && !isError && (
@@ -54,7 +52,7 @@ const TVShow = () => {
                     </Link>
                   </h2>
 
-                  <Carousel movieID={data?.id} type='tv' category='cast' />
+                  <Carousel movieID={data?.id} type='tv' />
                 </div>
               </div>
             </section>

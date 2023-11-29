@@ -26,6 +26,7 @@ export interface MovieProps {
   status: string;
   genres: { id: number; name: string };
   runtime: number;
+  media_type: string;
 }
 
 export interface TVProps {
@@ -39,6 +40,7 @@ export interface TVProps {
   number_of_seasons: number;
   number_of_episodes: number;
   status: string;
+  media_type: string;
 }
 
 export interface PersonProps {

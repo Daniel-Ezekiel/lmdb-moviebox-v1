@@ -136,3 +136,62 @@ export async function getSimilarRecommendations(type: string, id: number) {
     console.log(err);
   }
 }
+
+// Get Person details
+export async function getPersonDetails(id: number) {
+  const url: string = `https://api.themoviedb.org/3/person/${id}?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getPersonExternalLinks(id: number) {
+  const url: string = `https://api.themoviedb.org/3/person/${id}/external_ids?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get person movie credits
+export async function getPersonMovieCredits(id: number) {
+  const url: string = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get person tv credits
+export async function getPersonTvCredits(id: number) {
+  const url: string = `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get person combined credits
+export async function getPersonComboCredits(id: number) {
+  const url: string = `https://api.themoviedb.org/3/person/${id}/combined_credits?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}

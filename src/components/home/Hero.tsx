@@ -15,7 +15,6 @@ const Hero = () => {
   });
 
   const movie: MovieProps = data?.results.slice(0, 5)[currMoviePos];
-  // console.log(movie);
 
   function changeMovie() {
     currMoviePos > 3

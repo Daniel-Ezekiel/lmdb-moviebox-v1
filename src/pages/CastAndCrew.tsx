@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getMovieOrTvCredits, getMovieOrTvDetails } from "../../api/allFetches";
 import { CastMemberProps } from "../../@types";
 import CastMemberCard from "../components/global/CastMemberCard";
+import MainLayout from "../layout/MainLayout";
 
 const CastAndCrew = ({ type }: { type: string }) => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const CastAndCrew = ({ type }: { type: string }) => {
   });
 
   return (
-    <>
+    <MainLayout activePage='cast-and-crew' showHeader={true} showFooter={true}>
       {
         <div className='p-3'>
           {!info.isLoading && !info.isError && (
@@ -57,7 +58,7 @@ const CastAndCrew = ({ type }: { type: string }) => {
           )}
         </div>
       }
-    </>
+    </MainLayout>
   );
 };
 

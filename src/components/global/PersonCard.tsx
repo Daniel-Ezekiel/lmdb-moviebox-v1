@@ -17,7 +17,12 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
       key={person.id}
       className='min-w-[17rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
-      <Link to={`/person/${person.id}`}>
+      <Link
+        to={`/person/${person.original_name
+          .toLowerCase()
+          .split(" ")
+          .join("-")}-${person.id}`}
+      >
         <img
           src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
           alt={person.original_name}
@@ -25,7 +30,12 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
         />
       </Link>
       <div className='p-2 text-base'>
-        <Link to={`/person/${person.id}`}>
+        <Link
+          to={`/person/${person.original_name
+            .toLowerCase()
+            .split(" ")
+            .join("-")}-${person.id}`}
+        >
           <h3 className='font-semibold'>{person.original_name}</h3>
           {knownFor}
         </Link>
