@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MenuOpenRounded, MenuRounded } from "@mui/icons-material";
+import SearchBox from "./SearchBox";
 
 const Header = ({ activePage }: { activePage: string }) => {
   const menuRef = useRef<HTMLUListElement>(null);
@@ -33,14 +34,19 @@ const Header = ({ activePage }: { activePage: string }) => {
         activePage === "home" ? "z-[2] bg-transparent" : "bg-rose text-white"
       } h-fit shadow-lg`}
     >
-      <nav className='max-w-[124rem] mx-auto flex justify-between items-center p-3 py-1'>
-        <Link to='/' className='flex items-center gap-1 font-semibold text-2xl'>
+      <nav className='max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-2 justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:gap-[10rem] xl:gap-[15rem'>
+        <Link
+          to='/'
+          className='w-fit flex items-center gap-1 font-semibold text-2xl'
+        >
           <img src='/logo.png' alt='logo' className='w-8 h-8 md:w-10 md:h-10' />
           LMDb
         </Link>
 
+        <SearchBox activePage={activePage} />
+
         <ul
-          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl z-10 shadow-blue-100 md:shadow-none md:static md:grid md:grid-cols-3 md:bg-[rgba(0,0,0,0)] md:backdrop-blur-[0] md:h-fit md:w-fit md:p-4 md:py-2 md:gap-8 lg:text-lg '
+          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl z-10 lg:justify-self-end shadow-blue-100 lg:shadow-none lg:static lg:grid lg:grid-cols-3 lg:bg-[rgba(0,0,0,0)] lg:backdrop-blur-[0] lg:h-fit lg:w-fit lg:p-4 lg:px-[0] lg:py-2 lg:gap-4 lg:text-lg '
           ref={menuRef}
         >
           <li
@@ -143,7 +149,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           type='button'
           onClick={openOrCloseMenu}
           ref={hamburgerRef}
-          className='z-10 md:hidden'
+          className='z-20 justify-self-end lg:hidden'
         >
           {!activeMenu ? (
             <MenuRounded sx={{ fontSize: "3rem" }} />
