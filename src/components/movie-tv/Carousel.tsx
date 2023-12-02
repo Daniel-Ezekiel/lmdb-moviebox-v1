@@ -15,7 +15,7 @@ const Carousel = ({ movieID, type }: { movieID: string; type: string }) => {
     data.cast
       .slice(0, 10)
       .map((castMember: CastMemberProps) => (
-        <CastMemberCard castMember={castMember} />
+        <CastMemberCard key={castMember.id} castMember={castMember} />
       ));
 
   return (

@@ -195,3 +195,15 @@ export async function getPersonComboCredits(id: number) {
     console.log(err);
   }
 }
+
+// Get search results by URL
+export async function searchByURL(type: string, searchTerm: string) {
+  const url: string = `https://api.themoviedb.org/3/search/${type}?api_key=6f687067231f0a6ceb9c0cae600a334c&query=${searchTerm}`;
+
+  try {
+    const res = await axios.get(url);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
