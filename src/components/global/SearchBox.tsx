@@ -1,7 +1,13 @@
 import { Search } from "@mui/icons-material";
 import { useState } from "react";
 
-const SearchBox = ({ activePage }: { activePage: string }) => {
+const SearchBox = ({
+  activePage,
+  isShown,
+}: {
+  activePage: string;
+  isShown: boolean;
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   console.log(searchQuery, activePage);
 
@@ -19,7 +25,9 @@ const SearchBox = ({ activePage }: { activePage: string }) => {
     <form
       onSubmit={searchDatabase}
       method='GET'
-      className='mb-2 row-start-2 col-span-full md:col-start-2 md:row-start-1 md:col-span-1 md:mb-[0] xl:ml-8'
+      className={`${!isShown && "hidden"} ${
+        activePage !== "home" && "bg-rose"
+      } w-[95%] absolute left-1/2 -bottom-[5rem]  rounded-lg -translate-x-1/2 z-[3] md:block md:static md:mb-[0] md:col-start-2 md:row-start-1 md:col-span-1 md:translate-x-[0] xl:ml-8`}
     >
       <div className='relative min-w-full'>
         <input

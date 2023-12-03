@@ -1,14 +1,16 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MenuOpenRounded, MenuRounded } from "@mui/icons-material";
+import { MenuOpenRounded, MenuRounded, Search } from "@mui/icons-material";
 import SearchBox from "./SearchBox";
 
 const Header = ({ activePage }: { activePage: string }) => {
   const menuRef = useRef<HTMLUListElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLButtonElement>(null);
   const movieCategoryRef = useRef<HTMLUListElement>(null);
   const tvCategoryRef = useRef<HTMLUListElement>(null);
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
+  const [isShown, setIsShown] = useState<boolean>(false);
 
   // let mobileClassNames: string;
 
@@ -28,13 +30,19 @@ const Header = ({ activePage }: { activePage: string }) => {
     setActiveMenu((prevMenuState: boolean) => !prevMenuState);
   };
 
+  const toggleSearchBar = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    setIsShown(!isShown);
+  };
+
   return (
     <header
       className={`${
         activePage === "home" ? "z-[2] bg-transparent" : "bg-rose text-white"
       } h-fit shadow-lg`}
     >
-      <nav className='max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-2 justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:gap-[10rem] xl:gap-[15rem'>
+      <nav className='relative max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-2 justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:gap-[10rem] xl:gap-[15rem'>
         <Link
           to='/'
           className='w-fit flex items-center gap-1 font-semibold text-2xl'
@@ -43,7 +51,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           LMDb
         </Link>
 
-        <SearchBox activePage={activePage} />
+        <SearchBox activePage={activePage} isShown={isShown} />
 
         <ul
           className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl z-10 lg:justify-self-end shadow-blue-100 lg:shadow-none lg:static lg:grid lg:grid-cols-3 lg:bg-[rgba(0,0,0,0)] lg:backdrop-blur-[0] lg:h-fit lg:w-fit lg:p-4 lg:px-[0] lg:py-2 lg:gap-4 lg:text-lg '
@@ -145,18 +153,29 @@ const Header = ({ activePage }: { activePage: string }) => {
           </li>
         </ul>
 
-        <button
-          type='button'
-          onClick={openOrCloseMenu}
-          ref={hamburgerRef}
-          className='z-20 justify-self-end lg:hidden'
-        >
-          {!activeMenu ? (
-            <MenuRounded sx={{ fontSize: "3rem" }} />
-          ) : (
-            <MenuOpenRounded sx={{ fontSize: "3rem" }} />
-          )}
-        </button>
+        <div className='flex gap-3 justify-self-end self-center md:hidden'>
+          <button
+            type='button'
+            onClick={toggleSearchBar}
+            ref={searchRef}
+            className='justify-self-end md:hidden'
+          >
+            <Search fontSize='large' />
+          </button>
+
+          <button
+            type='button'
+            onClick={openOrCloseMenu}
+            ref={hamburgerRef}
+            className='z-30 justify-self-end lg:hidden'
+          >
+            {!activeMenu ? (
+              <MenuRounded sx={{ fontSize: "3rem" }} />
+            ) : (
+              <MenuOpenRounded sx={{ fontSize: "3rem" }} />
+            )}
+          </button>
+        </div>
       </nav>
     </header>
   );

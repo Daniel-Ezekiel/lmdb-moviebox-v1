@@ -15,7 +15,7 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
   return (
     <div
       key={person.id}
-      className='min-w-[17rem] min-h-[32rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link
         to={`/person/${person.original_name
@@ -26,7 +26,7 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
         <img
           src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
           alt={person.original_name}
-          className='min-h-[27.8rem] min-w-full object-cover'
+          className='max-h-[30rem] min-w-full object-cover'
         />
       </Link>
       <div className='p-2 text-base'>
