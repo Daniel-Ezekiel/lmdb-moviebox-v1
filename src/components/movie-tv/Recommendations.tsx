@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MovieProps, TVProps } from "../../../@types";
 import { getSimilarRecommendations } from "../../../api/allFetches";
 import MovieTvCard from "../global/MovieTvCard";
+import SkeletonCard from "../global/SkeletonCard";
 
 const Recommendations = ({ type, id }: { type: string; id: number }) => {
   const { isLoading, isError, data } = useQuery({
@@ -20,6 +21,11 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
             No recommendations to show
           </p>
         )}
+        {!isError &&
+          isLoading &&
+          Array(20)
+            .fill("")
+            .map((_, i) => <SkeletonCard key={i} />)}
         {!isLoading &&
           !isError &&
           data?.results.map((movieOrTV: MovieProps | TVProps) => {

@@ -20,7 +20,17 @@ const Carousel = ({ movieID, type }: { movieID: string; type: string }) => {
 
   return (
     <div className='flex gap-3 overflow-scroll'>
-      {!isLoading && !isError && profilesToShow}
+      {isLoading &&
+        !isError &&
+        Array(20)
+          .fill("")
+          .map((_, i) => (
+            <div
+              key={i}
+              className='min-w-[15rem] h-[29rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
+            ></div>
+          ))}
+      {(!isLoading && !isError && profilesToShow) || <p>No data available</p>}
     </div>
   );
 };

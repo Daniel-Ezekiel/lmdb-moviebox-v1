@@ -16,7 +16,7 @@ const CastMemberCard = ({ castMember }: { castMember: CastMemberProps }) => {
         <img
           src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`}
           alt={castMember.original_name}
-          className='max-h-[20rem] w-full object-top object-cover'
+          className='h-[20rem] w-full object-top object-cover'
         />
       </Link>
       <div className='p-2 text-base'>

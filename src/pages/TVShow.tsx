@@ -20,27 +20,54 @@ const TVShow = () => {
 
   return (
     <MainLayout showHeader={true} activePage='movie' showFooter={true}>
-      {!isLoading && !isError && (
-        <>
+      <>
+        {/* Overlay banner */}
+        {isLoading && !isError && (
+          <div className='col-span-full relative h-[22rem] bg-cover no-repeat bg-center shadow-lg after:absolute after:bg-[rgba(0,0,0,0.25)] after:h-full after:w-full after:top-0 after:left-0 animate-pulse md:h-[28rem] lg:h-[32rem] xl:h-[40rem]'></div>
+        )}
+        {!isLoading && !isError && (
           <div
             style={{
               backgroundImage: `url('https://image.tmdb.org/t/p/original/${data?.backdrop_path}')`,
             }}
             className='col-span-full relative h-[22rem] bg-cover no-repeat bg-center shadow-lg after:absolute after:bg-[rgba(0,0,0,0.45)] after:h-full after:w-full after:top-0 after:left-0 md:h-[28rem] lg:h-[32rem] xl:h-[40rem]'
           ></div>
+        )}
+        {isError && (
+          <div className='col-span-full relative h-[22rem] bg-cover no-repeat bg-center shadow-lg after:absolute after:bg-[rgba(0,0,0,0.25)] after:h-full after:w-full after:top-0 after:left-0 md:h-[28rem] lg:h-[32rem] xl:h-[40rem]'></div>
+        )}
+        {/* End of overlay banner */}
 
-          <div className='xl:max-w-[124rem] mx-auto md:grid-cols-[auto,_1fr] md:gap-3'>
-            <section className='md:flex'>
-              <SummaryCard type='tv' movieOrTV={data} />
+        <div className='xl:max-w-[124rem] mx-auto md:grid-cols-[auto,_1fr] md:gap-3'>
+          <section className='md:flex'>
+            <SummaryCard
+              type='tv'
+              movieOrTV={data}
+              isLoading={isLoading}
+              isError={isError}
+            />
 
-              <div className='mx-auto p-3 flex flex-col gap-4 md:max-w-[70%]'>
+            <div className='mx-auto p-3 flex flex-col gap-4 md:max-w-[70%]'>
+              {/* Overview container */}
+              {isLoading && !isError && (
+                <div className='w-full min-h-[40rem] bg-[rgba(0,0,0,0.45)] animate-pulse'></div>
+              )}
+              {!isLoading && !isError && (
                 <div>
                   <h2 className='mb-2 font-semibold text-xl text-rose lg:text-2xl'>
                     Overview
                   </h2>
                   <p className='text-base'>{data?.overview}</p>
                 </div>
+              )}
+              {isError && (
+                <p className='text-base text-center md:text-left'>
+                  Could not fetch movie details
+                </p>
+              )}
+              {/* End of overview container */}
 
+              {!isLoading && !isError && (
                 <div>
                   <h2 className='flex justify-between items-end mb-2 font-semibold text-xl text-rose lg:text-2xl'>
                     Main Cast
@@ -54,23 +81,29 @@ const TVShow = () => {
 
                   <Carousel movieID={data?.id} type='tv' />
                 </div>
-              </div>
-            </section>
+              )}
+            </div>
+          </section>
 
-            <section className='mt-6 border-t-2 border-gray-200 p-3'>
-              <h2 className='pt-4 font-semibold text-xl text-rose'>
-                Watch trailer
-              </h2>
+          {!isLoading && !isError && (
+            <>
+              <section className='mt-6 border-t-2 border-gray-200 p-3'>
+                <h2 className='pt-4 font-semibold text-xl text-rose'>
+                  Watch trailer
+                </h2>
 
-              <Trailer title={data?.name.toLowerCase().split(" ").join("-")} />
-            </section>
+                <Trailer
+                  title={data?.name.toLowerCase().split(" ").join("-")}
+                />
+              </section>
 
-            <section className='mt-6 border-t-2 border-gray-200 p-3'>
-              <Recommendations id={data?.id} type='tv' />
-            </section>
-          </div>
-        </>
-      )}
+              <section className='mt-6 border-t-2 border-gray-200 p-3'>
+                <Recommendations id={data?.id} type='tv' />
+              </section>
+            </>
+          )}
+        </div>
+      </>
     </MainLayout>
   );
 };
