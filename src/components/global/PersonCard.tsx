@@ -30,9 +30,9 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
               : "/movie-poster-placeholder.svg"
           }
           alt={person.original_name}
-          className={`h-[20rem] w-full ${
+          className={`h-[35rem] w-full ${
             person.profile_path ? "object-top" : "object-center"
-          } object-cover`}
+          } xsm:h-[30rem] object-cover`}
         />
       </Link>
       <div className='p-2 text-base'>
