@@ -16,16 +16,12 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
       </h2>
 
       <div className='mt-3 flex gap-3 overflow-x-auto'>
-        {!data?.results.length && (
-          <p className='w-full text-xl text-center'>
-            No recommendations to show
-          </p>
-        )}
         {!isError &&
           isLoading &&
           Array(20)
             .fill("")
             .map((_, i) => <SkeletonCard key={i} />)}
+
         {!isLoading &&
           !isError &&
           data?.results.map((movieOrTV: MovieProps | TVProps) => {
@@ -47,6 +43,12 @@ const Recommendations = ({ type, id }: { type: string; id: number }) => {
               );
             }
           })}
+
+        {!data?.results.length && (
+          <p className='w-full text-xl text-center'>
+            No recommendations to show
+          </p>
+        )}
       </div>
     </div>
   );

@@ -37,7 +37,11 @@ const Person = () => {
           <section className='flex flex-col justify-center items-center gap-4 border-b-2 border-b-gray-200 md:w-[20%] md:border-none'>
             <div className='h-[28rem] md-w-full md:h-auto'>
               <img
-                src={`https://image.tmdb.org/t/p/w500${data?.profile_path}`}
+                src={
+                  data?.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${data?.profile_path}`
+                    : "/movie-poster-placeholder.svg"
+                }
                 alt={data.name}
                 className='w-full h-full rounded-lg object-center object-cover'
               />
