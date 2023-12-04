@@ -14,9 +14,15 @@ const CastMemberCard = ({ castMember }: { castMember: CastMemberProps }) => {
           .join("-")}-${castMember.id}`}
       >
         <img
-          src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`}
+          src={
+            castMember.profile_path
+              ? `https://image.tmdb.org/t/p/w500/${castMember.profile_path}`
+              : "/movie-poster-placeholder.svg"
+          }
           alt={castMember.original_name}
-          className='h-[20rem] w-full object-top object-cover'
+          className={`h-[20rem] w-full ${
+            castMember.profile_path ? "object-top" : "object-center"
+          } object-cover`}
         />
       </Link>
       <div className='p-2 text-base'>

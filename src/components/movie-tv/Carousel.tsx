@@ -19,7 +19,7 @@ const Carousel = ({ movieID, type }: { movieID: string; type: string }) => {
       ));
 
   return (
-    <div className='flex gap-3 overflow-scroll'>
+    <div className='flex gap-3 overflow-x-auto'>
       {isLoading &&
         !isError &&
         Array(20)
@@ -30,7 +30,10 @@ const Carousel = ({ movieID, type }: { movieID: string; type: string }) => {
               className='min-w-[15rem] h-[29rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
             ></div>
           ))}
-      {(!isLoading && !isError && profilesToShow) || <p>No data available</p>}
+      {!isLoading && !isError && !data.cast.length && (
+        <p className='text-base'>No information to display</p>
+      )}
+      {!isLoading && !isError && profilesToShow}
     </div>
   );
 };

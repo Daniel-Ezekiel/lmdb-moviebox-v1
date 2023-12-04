@@ -24,9 +24,15 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
           .join("-")}-${person.id}`}
       >
         <img
-          src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
+          src={
+            person.profile_path
+              ? `https://image.tmdb.org/t/p/w500/${person.profile_path}`
+              : "/movie-poster-placeholder.svg"
+          }
           alt={person.original_name}
-          className='max-h-[30rem] min-w-full object-cover'
+          className={`h-[20rem] w-full ${
+            person.profile_path ? "object-top" : "object-center"
+          } object-cover`}
         />
       </Link>
       <div className='p-2 text-base'>

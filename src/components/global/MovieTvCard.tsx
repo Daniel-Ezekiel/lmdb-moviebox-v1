@@ -16,9 +16,15 @@ const MovieTvCard = ({
     >
       <Link to={`/${type}/${movieOrTv.id}`}>
         <img
-          src={`https://image.tmdb.org/t/p/w500/${movieOrTv.poster_path}`}
+          src={
+            movieOrTv.poster_path
+              ? `https://image.tmdb.org/t/p/w500/${movieOrTv.poster_path}`
+              : "/movie-poster-placeholder.svg"
+          }
           alt={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
-          className='h-[28.5rem] min-w-full object-cover'
+          className={`h-[30rem] w-full ${
+            movieOrTv.poster_path ? "object-top" : "object-center"
+          } object-cover`}
         />
       </Link>
       <div className='p-2 text-base'>

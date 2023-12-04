@@ -31,7 +31,7 @@ const Movies = () => {
         </h1>
       </section>
 
-      <section className='max-w-[124rem] mx-auto p-3 grid gap-4 xsm:grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5'>
+      <section className='max-w-[124rem] mx-auto p-3 grid justify-center gap-4 xsm:grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5'>
         {isError && (
           <div className='col-span-full max-w-[124rem] mx-auto p-3'>
             Error! Could not fetch {category?.split("-").join(" ")} movies

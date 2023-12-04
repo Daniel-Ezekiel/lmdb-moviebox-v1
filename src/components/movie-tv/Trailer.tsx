@@ -11,7 +11,12 @@ const Trailer = ({ title }: { title: string }) => {
 
   return (
     <div className='h-[22rem] md:h-[40rem] xl:h-[50rem]'>
-      {!isLoading && (
+      {isLoading ? (
+        <div
+          className='w-full h-full mt-2 rounded-lg bg-gray-200 animate-pulse'
+          // src={`https://www.youtube.com/embed/${trailerId}`}
+        ></div>
+      ) : (
         <iframe
           className='w-full h-full mt-2 rounded-lg'
           src={`https://www.youtube.com/embed/${trailerId}`}
