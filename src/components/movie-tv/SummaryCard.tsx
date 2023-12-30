@@ -22,9 +22,13 @@ const SummaryCard = ({
       {!isLoading && !isError && (
         <div className='relative mx-auto -mt-[8rem] pb-5 border-b-2 border-gray-200 grid justify-center items-center z-[1] md:border-b-[0] md:-mt-[15rem]'>
           <div className='p-3 pt-[0] grid justify-center items-center gap-2 text-center'>
-            <div className='relative w-[18rem] h-[27rem] bg-[rgba(0,0,0,0.25)] rounded-lg place-self-center lg:w-[22rem] lg:h-[33rem]'>
+            <div className='relative w-[18rem] h-[27rem] rounded-lg place-self-center lg:w-[22rem] lg:h-[33rem]'>
               <img
-                src={`https://image.tmdb.org/t/p/original/${movieOrTV?.poster_path}`}
+                src={
+                  movieOrTV.poster_path
+                    ? `https://image.tmdb.org/t/p/original/${movieOrTV?.poster_path}`
+                    : "/movie-poster-placeholder.svg"
+                }
                 alt={
                   (movieOrTV as MovieProps)?.title ||
                   (movieOrTV as TVProps)?.name

@@ -47,7 +47,7 @@ const TVShow = () => {
               isError={isError}
             />
 
-            <div className='mx-auto p-3 flex flex-col gap-4 md:max-w-[70%]'>
+            <div className='mx-auto p-3 flex flex-col gap-4 md:w-[70%]'>
               {/* Overview container */}
               {isLoading && !isError && (
                 <div className='w-full min-h-[40rem] bg-[rgba(0,0,0,0.45)] animate-pulse'></div>
@@ -57,7 +57,9 @@ const TVShow = () => {
                   <h2 className='mb-2 font-semibold text-xl text-rose lg:text-2xl'>
                     Overview
                   </h2>
-                  <p className='text-base'>{data?.overview}</p>
+                  <p className='text-base'>
+                    {data?.overview || "No information to display"}
+                  </p>
                 </div>
               )}
               {isError && (
