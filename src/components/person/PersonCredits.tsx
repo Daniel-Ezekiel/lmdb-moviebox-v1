@@ -36,7 +36,7 @@ const PersonCredits = ({
       },
     ],
   });
-  console.log(movieCredits?.data, tvCredits, comboCredits);
+  // console.log(movieCredits?.data, tvCredits, comboCredits);
 
   return (
     <>
