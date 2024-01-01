@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonCard from "../components/global/SkeletonCard";
 import MovieTvCard from "../components/global/MovieTvCard";
-// import { useState } from "react";
 
 const Movies = () => {
   const { category } = useParams();
@@ -15,7 +14,7 @@ const Movies = () => {
     queryFn: () => getByURL("movie", category?.split("-").join("_")),
   });
 
-  console.log(!isLoading && data);
+  // console.log(!isLoading && data);
 
   const movies: React.ReactNode[] = data?.results.map(
     (movieOrTv: MovieProps | TVProps) => (
