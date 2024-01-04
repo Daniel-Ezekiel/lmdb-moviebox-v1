@@ -7,6 +7,7 @@ export interface MainLayoutProps {
   activePage: string;
   showHeader?: boolean;
   showFooter?: boolean;
+  isLoggedIn?: boolean;
 }
 
 export interface MainLayoutContextProps {
