@@ -31,11 +31,11 @@ const Header = ({ activePage }: { activePage: string }) => {
     if (!activeMenu) {
       menuRef.current?.classList.remove("-right-[100vw]");
       menuRef.current?.classList.add("right-[0]");
-      hamburgerRef.current?.classList.add("fixed", "right-3", "z-[2]");
+      hamburgerRef.current?.classList.add("fixed", "right-3");
     } else {
       menuRef.current?.classList.add("-right-[100vw]");
       menuRef.current?.classList.remove("right-[0]");
-      hamburgerRef.current?.classList.remove("fixed", "right-3", "z-[2]");
+      hamburgerRef.current?.classList.remove("fixed", "right-3");
     }
 
     setActiveMenu((prevMenuState: boolean) => !prevMenuState);
