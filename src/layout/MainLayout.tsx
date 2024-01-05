@@ -20,7 +20,10 @@ function MainLayout({
       {showHeader && <Header activePage={activePage} />}
 
       <main
-        className={`w-full min-h-[90rem] pb-6 transition-all ease-in-out duration-300`}
+        className={`w-full min-h-[90rem] pb-6 transition-all ease-in-out duration-300 ${
+          (activePage === "sign-in" || activePage === "sign-up") &&
+          "min-h-[75rem] flex justify-center items-center"
+        }`}
       >
         {children}
       </main>

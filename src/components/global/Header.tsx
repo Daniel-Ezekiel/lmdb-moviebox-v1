@@ -59,7 +59,7 @@ const Header = ({ activePage }: { activePage: string }) => {
           activePage === "home" ? "z-[2] bg-transparent" : "bg-rose text-white"
         } h-fit shadow-lg`}
       >
-        <nav className='relative max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-2 justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:grid-cols-[12rem,1fr,_auto,_auto] lg:gap-[4rem] xl:gap-[4rem]'>
+        <nav className='relative max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-[auto_1fr] justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:grid-cols-[12rem,1fr,_auto,_auto] lg:gap-[4rem] xl:gap-[4rem]'>
           <Link
             to='/'
             className='w-fit flex items-center gap-1 font-semibold text-2xl'
@@ -175,7 +175,7 @@ const Header = ({ activePage }: { activePage: string }) => {
             </li>
           </ul>
 
-          <div className='flex gap-3 justify-self-end self-center'>
+          <div className='flex gap-3 items-center justify-self-end self-center'>
             <button
               type='button'
               onClick={toggleSearchBar}
