@@ -42,7 +42,7 @@ const Movie = () => {
           <section className='md:flex'>
             <SummaryCard
               type='movie'
-              movieOrTV={data}
+              movieOrTv={data}
               isLoading={isLoading}
               isError={isError}
             />

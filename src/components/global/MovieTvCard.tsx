@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MovieProps, TVProps } from "../../../@types";
 import { formatDate } from "../../../utils/formatDate";
+import FavButton from "./FavButton";
 
 const MovieTvCard = ({
   type,
@@ -12,7 +13,7 @@ const MovieTvCard = ({
   return (
     <div
       key={movieOrTv.id}
-      className='min-w-[20rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
+      className='relative min-w-[20rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
     >
       <Link to={`/${type}/${movieOrTv.id}`}>
         <img
@@ -38,6 +39,17 @@ const MovieTvCard = ({
             ? formatDate((movieOrTv as MovieProps).release_date)
             : formatDate((movieOrTv as TVProps).first_air_date)}
         </span>
+      </div>
+      <div
+        className='w-fit absolute top-2 right-[0.8rem] bg-white p-[0.3rem] rounded-full opacity-30 hover:opacity-95 transition-opacity ease-in-out duration-300'
+        title='Add to favorites'
+      >
+        <FavButton
+          id={movieOrTv.id}
+          type={type}
+          poster_path={movieOrTv.poster_path}
+          name={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
+        />
       </div>
     </div>
   );

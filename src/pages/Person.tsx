@@ -5,6 +5,7 @@ import { getPersonDetails } from "../../api/allFetches";
 import Socials from "../components/person/Socials";
 import { calcAge, formatDate } from "../../utils/formatDate";
 import PersonCredits from "../components/person/PersonCredits";
+import FavButton from "../components/global/FavButton";
 
 const Person = () => {
   const { id } = useParams();
@@ -35,7 +36,7 @@ const Person = () => {
             {data?.name}
           </h1>
           <section className='flex flex-col justify-center items-center gap-4 border-b-2 border-b-gray-200 md:w-[20%] md:border-none'>
-            <div className='h-[28rem] md-w-full md:h-auto'>
+            <div className='h-[28rem] relative md-w-full md:h-auto'>
               <img
                 src={
                   data?.profile_path
@@ -45,6 +46,17 @@ const Person = () => {
                 alt={data.name}
                 className='w-full h-full rounded-lg object-center object-cover'
               />
+              <div
+                className='w-fit absolute top-2 right-[0.8rem] bg-white p-[0.3rem] rounded-full opacity-30 hover:opacity-95 transition-opacity ease-in-out duration-300'
+                title='Add to favorites'
+              >
+                <FavButton
+                  id={data.id}
+                  type='person'
+                  poster_path={data.profile_path}
+                  name={data.original_name}
+                />
+              </div>
             </div>
             <Socials personId={personId} />
             <div className='w-full'>
