@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import { Google } from "@mui/icons-material";
+import { useContext } from "react";
+import { LoggedInContext } from "../../context/LoginContext";
 
 const SignIn = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { setIsLoggedIn }: { setIsLoggedIn?: any } =
+    useContext(LoggedInContext);
+  // const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(LoggedInContext);
+
   return (
     <MainLayout activePage='sign-in' showFooter={false} showHeader={true}>
       <section className='max-w-[40rem] p-3 my-auto mx-auto'>
@@ -47,6 +54,7 @@ const SignIn = () => {
           <button
             className='w-full mt-2 p-3 bg-rose font-semibold text-base text-white uppercase active:scale-90 transition-transform ease-in-out duration-300'
             type='button'
+            onClick={() => setIsLoggedIn(true)}
           >
             Sign in
           </button>

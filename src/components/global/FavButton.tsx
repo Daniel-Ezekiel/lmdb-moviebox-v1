@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SavedContext } from "../../../context/SaveContext";
 import { FavoriteBorderOutlined, FavoriteOutlined } from "@mui/icons-material";
+import { ModalToggleContext } from "../../../context/AuthModalContext";
 
 interface FavButtonProps {
   id: number;
@@ -11,11 +12,17 @@ interface FavButtonProps {
 
 const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
   const isSaved = useContext(SavedContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { setShowModal }: { setShowModal?: any } =
+    useContext(ModalToggleContext);
+  function toggleModal() {
+    setShowModal(true);
+  }
 
   console.log(id, poster_path, name, isSaved);
   return (
     <SavedContext.Provider value={isSaved}>
-      <button>
+      <button onClick={toggleModal}>
         {isSaved ? (
           <FavoriteOutlined fontSize='large' sx={{ color: "#be123c" }} />
         ) : (

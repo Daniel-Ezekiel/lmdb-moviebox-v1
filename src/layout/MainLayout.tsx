@@ -1,6 +1,7 @@
 // import { twMerge } from "tailwind-merge";
 import { MainLayoutProps } from "../../@types";
 import { LoggedInContext } from "../../context/LoginContext";
+import { ModalToggleContext } from "../../context/AuthModalContext";
 import Header from "../components/global/Header";
 import Footer from "../components/global/Footer";
 import AuthCheckModal from "../components/global/AuthCheckModal";
@@ -13,7 +14,8 @@ function MainLayout({
   showFooter,
   showHeader,
 }: MainLayoutProps) {
-  const isLoggedIn = useContext(LoggedInContext);
+  const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(LoggedInContext);
+  const { showModal }: { showModal?: boolean } = useContext(ModalToggleContext);
 
   return (
     <div>
@@ -30,9 +32,7 @@ function MainLayout({
 
       {showFooter && <Footer />}
 
-      <LoggedInContext.Provider value={false}>
-        {isLoggedIn && <AuthCheckModal />}
-      </LoggedInContext.Provider>
+      {!isLoggedIn && showModal && <AuthCheckModal />}
     </div>
   );
 }

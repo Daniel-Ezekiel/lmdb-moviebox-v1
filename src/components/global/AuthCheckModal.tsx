@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { ModalToggleContext } from "../../../context/AuthModalContext";
+import { useContext } from "react";
 
 const AuthCheckModal = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { setShowModal }: { setShowModal?: any } =
+    useContext(ModalToggleContext);
   return (
     <>
       <div className='w-full h-full fixed top-0 left-0 bg-[rgba(0,0,0,0.5)] backdrop-blur-sm z-40 transition-all ease-in-out duration-300'></div>
@@ -12,7 +17,10 @@ const AuthCheckModal = () => {
           Please sign in to add this content to your favourites.
         </p>
         <div className='mt-4 flex justify-center items-center gap-3 lg:max-w-[60rem]'>
-          <button className='w-[10rem] px-3 py-2 rounded-lg bg-gray-300 text-black shadow-lg active:scale-90 transition-transform ease-in-out duration-3'>
+          <button
+            className='w-[10rem] px-3 py-2 rounded-lg bg-gray-300 text-black shadow-lg active:scale-90 transition-transform ease-in-out duration-3'
+            onClick={() => setShowModal(false)}
+          >
             Close
           </button>
 

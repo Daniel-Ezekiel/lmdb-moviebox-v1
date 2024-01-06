@@ -12,6 +12,9 @@ import CastAndCrew from "./pages/CastAndCrew";
 import Search from "./pages/Search";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import { LoggedInContext } from "../context/LoginContext";
+import { ModalToggleContext } from "../context/AuthModalContext";
+import { useState } from "react";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -67,10 +70,18 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  // const [isSaved, setIsSa] = useState<boolean>(false);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <LoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      <ModalToggleContext.Provider value={{ showModal, setShowModal }}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ModalToggleContext.Provider>
+    </LoggedInContext.Provider>
   );
 }
 
