@@ -24,10 +24,13 @@ const AuthCheckModal = () => {
             Close
           </button>
 
-          <button className='w-[10rem] px-3 py-2 rounded-lg bg-rose text-white uppercase shadow-lg active:scale-90 transition-transform ease-in-out duration-3'>
+          <Link
+            to='/sign-in'
+            className='block w-[10rem] px-3 py-2 rounded-lg bg-rose text-center text-white uppercase shadow-lg active:scale-90 transition-transform ease-in-out duration-3'
+            onClick={() => setShowModal(false)}
+          >
             Sign in
-          </button>
-          <Link to='/sign-up'></Link>
+          </Link>
 
           {/* <Link to='/sign-in'>Sign in</Link> */}
         </div>

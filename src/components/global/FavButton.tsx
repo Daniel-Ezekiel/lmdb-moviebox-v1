@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { SavedContext } from "../../../context/SaveContext";
 import { FavoriteBorderOutlined, FavoriteOutlined } from "@mui/icons-material";
 import { ModalToggleContext } from "../../../context/AuthModalContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface FavButtonProps {
   id: number;
@@ -11,12 +12,13 @@ interface FavButtonProps {
 }
 
 const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
+  const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
   const isSaved = useContext(SavedContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setShowModal }: { setShowModal?: any } =
     useContext(ModalToggleContext);
   function toggleModal() {
-    setShowModal(true);
+    if (!isLoggedIn) setShowModal(true);
   }
 
   console.log(id, poster_path, name, isSaved);

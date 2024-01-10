@@ -9,7 +9,7 @@ const SearchBox = ({
   isShown: boolean;
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(searchQuery, activePage);
+  // console.log(searchQuery, activePage);
 
   function searchDatabase(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { LoggedInContext } from "../../../context/LoginContext";
+import { AuthContext } from "../../../context/AuthContext";
 import {
   AccountCircle,
   MenuOpenRounded,
@@ -20,7 +20,7 @@ const Header = ({ activePage }: { activePage: string }) => {
   const [isShown, setIsShown] = useState<boolean>(false);
   const [authShown, setAuthShown] = useState<boolean>(false);
 
-  const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(LoggedInContext);
+  const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
 
   const openOrCloseMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
@@ -45,7 +45,7 @@ const Header = ({ activePage }: { activePage: string }) => {
 
   const toggleAuthDropDown = () => {
     setAuthShown(!authShown);
-    console.log("clicked");
+    // console.log("clicked");
   };
 
   return (

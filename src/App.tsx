@@ -12,7 +12,7 @@ import CastAndCrew from "./pages/CastAndCrew";
 import Search from "./pages/Search";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { LoggedInContext } from "../context/LoginContext";
+import { AuthContext } from "../context/AuthContext";
 import { ModalToggleContext } from "../context/AuthModalContext";
 import { useState } from "react";
 
@@ -71,17 +71,18 @@ const router = createBrowserRouter([
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   // const [isSaved, setIsSa] = useState<boolean>(false);
 
   return (
-    <LoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
       <ModalToggleContext.Provider value={{ showModal, setShowModal }}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
         </QueryClientProvider>
       </ModalToggleContext.Provider>
-    </LoggedInContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
