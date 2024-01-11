@@ -7,7 +7,7 @@ import {
   //   ViewListRounded,
 } from "@mui/icons-material";
 import { auth } from "../../../config/firebase";
-import { signOut } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 
 const AuthDropdown = ({
   authShown,
@@ -21,6 +21,7 @@ const AuthDropdown = ({
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setIsLoggedIn }: { setIsLoggedIn?: any } = useContext(AuthContext);
+  const { currentUser }: { currentUser?: User } = useContext(AuthContext);
 
   const signOutFromApp = async () => {
     try {
@@ -38,9 +39,9 @@ const AuthDropdown = ({
     <>
       {isLoggedIn && authShown && (
         <div className='absolute top-[115%] right-[0] bg-white border border-white overflow-hidden shadow-lg font-medium text-rose text-base rounded-lg z-[1]'>
-          <ul className='w-[12.5rem] flex flex-col justify-start items-start text-start'>
-            <li className='w-full px-2 py-2 font-semibold uppercase border-b border-rose transition-all ease-in-out duration-300'>
-              Hi, Daniel
+          <ul className='w-fit flex flex-col justify-start items-start text-start'>
+            <li className='w-full px-2 py-2 font-semibold border-b border-rose transition-all ease-in-out duration-300'>
+              Hi, {currentUser?.displayName || currentUser?.email}
             </li>
             <li className='w-full px-2 py-2 flex items-center gap-1 hover:bg-rose hover:text-white transition-all ease-in-out duration-300'>
               <FavoriteBorderRounded fontSize='large' />

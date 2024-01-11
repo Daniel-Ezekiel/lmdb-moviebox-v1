@@ -15,6 +15,8 @@ import SignUp from "./pages/SignUp";
 import { AuthContext } from "../context/AuthContext";
 import { ModalToggleContext } from "../context/AuthModalContext";
 import { useState } from "react";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -71,12 +73,22 @@ const router = createBrowserRouter([
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   // const [isSaved, setIsSa] = useState<boolean>(false);
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      setCurrentUser(user);
+      // ...
+      console.log(currentUser);
+    }
+  });
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, currentUser }}>
       <ModalToggleContext.Provider value={{ showModal, setShowModal }}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />

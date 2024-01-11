@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import SearchBox from "./SearchBox";
 import AuthDropdown from "./AuthDropdown";
+import { User } from "firebase/auth";
 
 const Header = ({ activePage }: { activePage: string }) => {
   const menuRef = useRef<HTMLUListElement>(null);
@@ -21,6 +22,7 @@ const Header = ({ activePage }: { activePage: string }) => {
   const [authShown, setAuthShown] = useState<boolean>(false);
 
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
+  const { currentUser }: { currentUser?: User } = useContext(AuthContext);
 
   const openOrCloseMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
@@ -187,9 +189,20 @@ const Header = ({ activePage }: { activePage: string }) => {
                 Sign In
               </Link>
             ) : (
-              <div className='relative block'>
-                <button onClick={toggleAuthDropDown}>
-                  <AccountCircle sx={{ fontSize: "3rem" }} />
+              <div className='relative flex justify-center items-center'>
+                <button
+                  onClick={toggleAuthDropDown}
+                  className='active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border border-2 border-rose'
+                >
+                  {currentUser?.photoURL ? (
+                    <img
+                      src={currentUser?.photoURL}
+                      alt='Profile picture'
+                      className='w-8 h-8 rounded-full'
+                    />
+                  ) : (
+                    <AccountCircle sx={{ fontSize: "3rem" }} />
+                  )}
                 </button>
                 {authShown && (
                   <AuthDropdown
