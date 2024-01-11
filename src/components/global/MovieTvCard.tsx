@@ -13,7 +13,7 @@ const MovieTvCard = ({
   return (
     <div
       key={movieOrTv.id}
-      className='relative shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='relative min-w-[20rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
     >
       <Link to={`/${type}/${movieOrTv.id}`}>
         <img
@@ -23,9 +23,9 @@ const MovieTvCard = ({
               : "/movie-poster-placeholder.svg"
           }
           alt={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
-          className={`h-[30rem] w-full ${
+          className={`w-full ${
             movieOrTv.poster_path ? "object-top" : "object-center"
-          } object-cover`}
+          } object-cover sm:h-[33rem]`}
         />
       </Link>
       <div className='p-2 text-base'>
