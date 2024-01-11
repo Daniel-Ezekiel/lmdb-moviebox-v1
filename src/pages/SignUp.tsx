@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import { Google } from "@mui/icons-material";
 import { useContext, useState } from "react";
-import { auth } from "../../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "../../config/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -23,9 +23,6 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      // setTimeout(() => {
-      //   setIsLoading(true);
-      // }, 1500);
       setIsLoading(true);
       await createUserWithEmailAndPassword(auth, email, password);
 
@@ -34,6 +31,22 @@ const SignUp = () => {
     } catch (error) {
       // const errorCode = error.code;
       // const errorMessage = error.message;
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      await signInWithPopup(auth, googleProvider);
+      setIsLoggedIn(true);
+      navigate("/");
+      console.log(await signInWithPopup(auth, googleProvider));
+    } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -135,7 +148,10 @@ const SignUp = () => {
           </p>
         </div>
 
-        <button className='mt-6 flex justify-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'>
+        <button
+          className='mt-6 flex justify-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'
+          onClick={signInWithGoogle}
+        >
           <Google fontSize='large' />
           Continue with Google
         </button>

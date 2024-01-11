@@ -13,7 +13,7 @@ const MovieTvCard = ({
   return (
     <div
       key={movieOrTv.id}
-      className='relative min-w-[20rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden'
+      className='relative shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link to={`/${type}/${movieOrTv.id}`}>
         <img

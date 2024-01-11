@@ -3,8 +3,8 @@ import MainLayout from "../layout/MainLayout";
 import { Google } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { auth } from "../../config/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "../../config/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 
 const SignIn = () => {
@@ -25,8 +25,23 @@ const SignIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoggedIn(true);
 
-      navigate(-1);
+      navigate("/");
     } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      setIsLoading(true);
+      await signInWithPopup(auth, googleProvider);
+      setIsLoggedIn(true);
+      navigate("/");
+      console.log(await signInWithPopup(auth, googleProvider));
+    } catch (error) {
+      setIsLoading(false);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -93,9 +108,17 @@ const SignIn = () => {
           <button className='text-rose underline'>Forgot Password?</button>
         </div>
 
-        <button className='mt-6 flex justify-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'>
-          <Google fontSize='large' />
-          Continue with Google
+        <button
+          className='mt-6 flex justify-center items-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'
+          onClick={signInWithGoogle}
+        >
+          {isLoading ? (
+            <ClipLoader color='black' />
+          ) : (
+            <>
+              <Google fontSize='large' /> Continue with Google
+            </>
+          )}
         </button>
       </section>
     </MainLayout>
