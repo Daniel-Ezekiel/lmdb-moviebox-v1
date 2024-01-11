@@ -192,7 +192,7 @@ const Header = ({ activePage }: { activePage: string }) => {
               <div className='relative flex justify-center items-center'>
                 <button
                   onClick={toggleAuthDropDown}
-                  className='active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border border-2 border-rose'
+                  className='active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border-2 border-rose'
                 >
                   {currentUser?.photoURL ? (
                     <img
