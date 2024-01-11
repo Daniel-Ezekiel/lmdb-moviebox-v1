@@ -14,6 +14,7 @@ export default {
     },
 
     spacing: {
+      0: "0",
       1: "0.5rem",
       2: "1rem",
       3: "1.5rem",
@@ -54,7 +55,7 @@ export default {
     },
 
     screens: {
-      xsm: "390px",
+      xsm: "400px",
       sm: "540px",
       md: "768px",
       lg: "1024px",

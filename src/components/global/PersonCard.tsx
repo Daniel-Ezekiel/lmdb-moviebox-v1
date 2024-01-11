@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MovieProps, PersonProps, TVProps } from "../../../@types";
 import React from "react";
+import FavButton from "./FavButton";
 
 const PersonCard = ({ person }: { person: PersonProps }) => {
   const knownFor: React.ReactNode[] = person.known_for.map(
@@ -15,7 +16,7 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
   return (
     <div
       key={person.id}
-      className='shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='relative shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link
         to={`/person/${person.original_name
@@ -45,6 +46,17 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
           <h3 className='font-semibold'>{person.original_name}</h3>
           {knownFor}
         </Link>
+      </div>
+      <div
+        className='w-fit absolute top-2 right-[0.8rem] bg-white p-[0.3rem] rounded-full opacity-30 hover:opacity-95 transition-opacity ease-in-out duration-300'
+        title='Add to favorites'
+      >
+        <FavButton
+          id={person.id}
+          type='person'
+          poster_path={person.profile_path}
+          name={person.original_name}
+        />
       </div>
     </div>
   );

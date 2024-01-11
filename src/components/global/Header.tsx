@@ -1,7 +1,15 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { MenuOpenRounded, MenuRounded, Search } from "@mui/icons-material";
+import { AuthContext } from "../../../context/AuthContext";
+import {
+  AccountCircle,
+  MenuOpenRounded,
+  MenuRounded,
+  Search,
+} from "@mui/icons-material";
 import SearchBox from "./SearchBox";
+import AuthDropdown from "./AuthDropdown";
+import { User } from "firebase/auth";
 
 const Header = ({ activePage }: { activePage: string }) => {
   const menuRef = useRef<HTMLUListElement>(null);
@@ -11,8 +19,10 @@ const Header = ({ activePage }: { activePage: string }) => {
   const tvCategoryRef = useRef<HTMLUListElement>(null);
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [isShown, setIsShown] = useState<boolean>(false);
+  const [authShown, setAuthShown] = useState<boolean>(false);
 
-  // let mobileClassNames: string;
+  const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
+  const { currentUser }: { currentUser?: User } = useContext(AuthContext);
 
   const openOrCloseMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     event?.preventDefault();
@@ -20,11 +30,11 @@ const Header = ({ activePage }: { activePage: string }) => {
     if (!activeMenu) {
       menuRef.current?.classList.remove("-right-[100vw]");
       menuRef.current?.classList.add("right-[0]");
-      hamburgerRef.current?.classList.add("fixed", "right-3", "z-[2]");
+      hamburgerRef.current?.classList.add("fixed", "right-3");
     } else {
       menuRef.current?.classList.add("-right-[100vw]");
       menuRef.current?.classList.remove("right-[0]");
-      hamburgerRef.current?.classList.remove("fixed", "right-3", "z-[2]");
+      hamburgerRef.current?.classList.remove("fixed", "right-3");
     }
 
     setActiveMenu((prevMenuState: boolean) => !prevMenuState);
@@ -32,8 +42,12 @@ const Header = ({ activePage }: { activePage: string }) => {
 
   const toggleSearchBar = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-
     setIsShown(!isShown);
+  };
+
+  const toggleAuthDropDown = () => {
+    setAuthShown(!authShown);
+    // console.log("clicked");
   };
 
   return (
@@ -42,7 +56,7 @@ const Header = ({ activePage }: { activePage: string }) => {
         activePage === "home" ? "z-[2] bg-transparent" : "bg-rose text-white"
       } h-fit shadow-lg`}
     >
-      <nav className='relative max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-2 justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:gap-[10rem] xl:gap-[15rem'>
+      <nav className='relative max-w-[124rem] mx-auto p-3 py-1 grid grid-cols-[auto_1fr] justify-between items-center gap-4 md:p-2 md:grid-cols-[12rem,1fr,_auto] md:gap-10 lg:grid-cols-[12rem,1fr,_auto,_auto] lg:gap-[4rem] xl:gap-[4rem]'>
         <Link
           to='/'
           className='w-fit flex items-center gap-1 font-semibold text-2xl'
@@ -54,7 +68,7 @@ const Header = ({ activePage }: { activePage: string }) => {
         <SearchBox activePage={activePage} isShown={isShown} />
 
         <ul
-          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl z-10 lg:justify-self-end shadow-blue-100 lg:shadow-none lg:static lg:grid lg:grid-cols-3 lg:bg-[rgba(0,0,0,0)] lg:backdrop-blur-[0] lg:h-fit lg:w-fit lg:p-4 lg:px-[0] lg:py-2 lg:gap-4 lg:text-lg '
+          className='flex flex-col gap-4 font-semibold fixed pt-[10rem] px-[5rem] top-[0] -right-[100vw] w-[68vw] h-[100vh] bg-[rgba(0,0,0,0.09)] backdrop-blur-[4rem] transition-all ease-in-out duration-300 shadow-xl z-10 lg:justify-self-end shadow-blue-100 lg:shadow-none lg:static lg:flex-row lg:justify-end lg:items-center lg:bg-[rgba(0,0,0,0)] lg:backdrop-blur-[0] lg:h-fit lg:w-fit lg:p-4 lg:px-[0] lg:py-2 lg:gap-4 lg:text-lg xl:ml-8'
           ref={menuRef}
         >
           <li
@@ -102,7 +116,6 @@ const Header = ({ activePage }: { activePage: string }) => {
               </li>
             </ul>
           </li>
-
           <li
             className='w-fit relative text-base text-white'
             onMouseEnter={() =>
@@ -153,21 +166,59 @@ const Header = ({ activePage }: { activePage: string }) => {
           </li>
         </ul>
 
-        <div className='flex gap-3 justify-self-end self-center md:hidden'>
+        <div className='flex gap-3 items-center justify-self-end self-center'>
           <button
             type='button'
             onClick={toggleSearchBar}
             ref={searchRef}
-            className='justify-self-end md:hidden'
+            className='justify-self-end md:hidden lg:hidden'
           >
             <Search fontSize='large' />
           </button>
+
+          <div className=''>
+            {!isLoggedIn ? (
+              <Link
+                to='/sign-in'
+                className={`${
+                  activePage === "home"
+                    ? "bg-rose text-white"
+                    : "bg-white text-rose"
+                } p-2 px-4 rounded-xl text-sm uppercase font-semibold hover:scale-110 transition-transform ease-in-out duration-500`}
+              >
+                Sign In
+              </Link>
+            ) : (
+              <div className='relative flex justify-center items-center'>
+                <button
+                  onClick={toggleAuthDropDown}
+                  className='active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border-2 border-rose'
+                >
+                  {currentUser?.photoURL ? (
+                    <img
+                      src={currentUser?.photoURL}
+                      alt='Profile picture'
+                      className='w-8 h-8 rounded-full'
+                    />
+                  ) : (
+                    <AccountCircle sx={{ fontSize: "3rem" }} />
+                  )}
+                </button>
+                {authShown && (
+                  <AuthDropdown
+                    authShown={authShown}
+                    setAuthShown={setAuthShown}
+                  />
+                )}
+              </div>
+            )}
+          </div>
 
           <button
             type='button'
             onClick={openOrCloseMenu}
             ref={hamburgerRef}
-            className='z-30 justify-self-end lg:hidden'
+            className='z-50 justify-self-end lg:hidden'
           >
             {!activeMenu ? (
               <MenuRounded sx={{ fontSize: "3rem" }} />
