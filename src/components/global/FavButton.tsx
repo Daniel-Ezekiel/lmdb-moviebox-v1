@@ -21,9 +21,10 @@ const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
     if (!isLoggedIn) setShowModal(true);
   }
 
-  console.log(id, poster_path, name, isSaved);
+  // console.log(id, poster_path, name, isSaved);
   return (
     <SavedContext.Provider value={isSaved}>
+      <div className='hidden'>{`${id + poster_path + name}`}</div>
       <button onClick={toggleModal}>
         {isSaved ? (
           <FavoriteOutlined fontSize='large' sx={{ color: "#be123c" }} />

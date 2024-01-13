@@ -29,7 +29,7 @@ const AuthDropdown = ({
 
       setAuthShown(false);
       setIsLoggedIn(false);
-      navigate("/sign-in");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

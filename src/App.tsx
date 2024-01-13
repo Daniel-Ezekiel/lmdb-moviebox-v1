@@ -15,8 +15,8 @@ import SignUp from "./pages/SignUp";
 import { AuthContext } from "../context/AuthContext";
 import { ModalToggleContext } from "../context/AuthModalContext";
 import { useState } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../config/firebase";
+import { onAuthStateChanged, User } from "firebase/auth";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -85,7 +85,7 @@ function App() {
       setIsLoggedIn(true);
       setShowModal(false);
       // ...
-      console.log(currentUser);
+      // console.log(currentUser);
     }
   });
 
@@ -101,4 +101,3 @@ function App() {
 }
 
 export default App;
-

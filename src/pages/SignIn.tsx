@@ -3,9 +3,10 @@ import MainLayout from "../layout/MainLayout";
 import { Google } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { auth, googleProvider } from "../../config/firebase";
+import { auth, db, googleProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
+import { doc, setDoc } from "firebase/firestore";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -36,10 +37,26 @@ const SignIn = () => {
   const signInWithGoogle = async () => {
     try {
       setIsLoading(true);
-      await signInWithPopup(auth, googleProvider);
+      const res = await signInWithPopup(auth, googleProvider);
+
+      const firstName: string | undefined = res.user.displayName
+        ?.split(" ")
+        .at(0)
+        ?.trim();
+      const lastName: string | undefined = res.user.displayName
+        ?.split(" ")
+        .at(-1)
+        ?.trim();
+
+      await setDoc(doc(db, "users", res?.user.uid), {
+        firstName,
+        lastName,
+        email: res?.user.email,
+        uid: res?.user.uid,
+      });
+
       setIsLoggedIn(true);
       navigate("/");
-      console.log(await signInWithPopup(auth, googleProvider));
     } catch (error) {
       setIsLoading(false);
       console.error(error);

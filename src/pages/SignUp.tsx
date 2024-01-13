@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import { Google } from "@mui/icons-material";
 import { useContext, useState } from "react";
-import { auth, googleProvider } from "../../config/firebase";
+import { auth, googleProvider, db } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -11,6 +12,8 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -24,7 +27,15 @@ const SignUp = () => {
 
     try {
       setIsLoading(true);
-      await createUserWithEmailAndPassword(auth, email, password);
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(res);
+
+      await setDoc(doc(db, "users", res?.user.uid), {
+        firstName,
+        lastName,
+        email: res?.user.email,
+        uid: res?.user.uid,
+      });
 
       setIsLoggedIn(true);
       navigate("/");
@@ -42,7 +53,24 @@ const SignUp = () => {
 
     try {
       setIsLoading(true);
-      await signInWithPopup(auth, googleProvider);
+      const res = await signInWithPopup(auth, googleProvider);
+
+      const firstName: string | undefined = res.user.displayName
+        ?.split(" ")
+        .at(0)
+        ?.trim();
+      const lastName: string | undefined = res.user.displayName
+        ?.split(" ")
+        .at(-1)
+        ?.trim();
+
+      await setDoc(doc(db, "users", res?.user.uid), {
+        firstName,
+        lastName,
+        email: res?.user.email,
+        uid: res?.user.uid,
+      });
+
       setIsLoggedIn(true);
       navigate("/");
       console.log(await signInWithPopup(auth, googleProvider));
@@ -55,7 +83,7 @@ const SignUp = () => {
 
   return (
     <MainLayout activePage='sign-in' showFooter={false} showHeader={true}>
-      <section className='max-w-[40rem] p-3 my-auto mx-auto'>
+      <section className='max-w-[48rem] p-3 my-auto mx-auto'>
         <h1 className='my-3 font-bold text-4xl text-rose text-center uppercase'>
           Sign Up
         </h1>
@@ -65,9 +93,9 @@ const SignUp = () => {
         </p>
         <form
           onSubmit={signUpWithEmailAndPassword}
-          className='grid grid-cols-2 gap-4'
+          className='grid justify-stretch gap-4 grid-cols-2'
         >
-          {/* <div className='grid gap-1 text-base'>
+          <div className='grid gap-1 text-base'>
             <label htmlFor='first-name' className='font-semibold text-rose'>
               First Name
               <span className='text-[2rem]'>*</span>
@@ -76,8 +104,10 @@ const SignUp = () => {
               id='first-name'
               name='first-name'
               type='text'
+              value={firstName}
+              onChange={(e) => setFirstName(e.currentTarget.value.trim())}
               placeholder='Enter your first name'
-              className='p-3 border border-gray-300'
+              className='w-full p-3 border border-gray-300'
               required
             />
           </div>
@@ -91,11 +121,13 @@ const SignUp = () => {
               id='last-name'
               name='last-name'
               type='text'
+              value={lastName}
+              onChange={(e) => setLastName(e.currentTarget.value.trim())}
               placeholder='Enter your last name'
-              className='p-3 border border-gray-300'
+              className='w-full p-3 border border-gray-300'
               required
             />
-          </div> */}
+          </div>
 
           <div className='col-span-full grid gap-1 text-base'>
             <label htmlFor='email' className='font-semibold text-rose'>
