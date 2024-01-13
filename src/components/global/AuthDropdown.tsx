@@ -22,13 +22,16 @@ const AuthDropdown = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setIsLoggedIn }: { setIsLoggedIn?: any } = useContext(AuthContext);
   const { currentUser }: { currentUser?: User } = useContext(AuthContext);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { setCurrentUser }: { setCurrentUser?: any } = useContext(AuthContext);
 
   const signOutFromApp = async () => {
     try {
-      signOut(auth);
+      await signOut(auth);
 
       setAuthShown(false);
       setIsLoggedIn(false);
+      setCurrentUser(null);
       navigate("/");
     } catch (error) {
       console.error(error);

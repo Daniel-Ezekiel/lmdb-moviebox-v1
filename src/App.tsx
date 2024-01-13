@@ -90,7 +90,9 @@ function App() {
   });
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, currentUser }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser }}
+    >
       <ModalToggleContext.Provider value={{ showModal, setShowModal }}>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
