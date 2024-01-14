@@ -21,7 +21,12 @@ interface FavButtonProps {
   name?: string;
 }
 
-const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
+interface FavProps {
+  id: number;
+  type: string;
+}
+
+const FavButton = ({ id, type, poster_path, name }: FavButtonProps) => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<[]>([]);
@@ -36,21 +41,26 @@ const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
 
   const addToFavourites = async () => {
     if (!isLoggedIn) setShowModal(true);
-    if (isLoggedIn) setIsSaved(!isSaved);
 
     const favRef = doc(db, "users", (currentUser as User).uid);
     try {
+      setIsLoading(true);
       if (isLoggedIn && !isSaved && currentUser?.uid) {
-        setIsLoading(true);
+        await updateDoc(favRef, {
+          favourites: arrayUnion({ id, type }),
+        });
 
+        setIsSaved(!isSaved);
+      } else if (
+        isLoggedIn &&
+        isSaved &&
+        favourites.filter((fav) => (fav as FavProps).id == id).length
+      ) {
         await updateDoc(favRef, {
-          favourites: arrayUnion(id),
+          favourites: arrayRemove({ id, type }),
         });
-      } else if (isLoggedIn && isSaved && favourites.includes(id as never)) {
-        console.log(favourites.includes(id as never));
-        await updateDoc(favRef, {
-          favourites: arrayRemove(id),
-        });
+
+        setIsSaved(!isSaved);
       }
     } catch (error) {
       console.log(error);
@@ -69,7 +79,10 @@ const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
           const res = favSnap.data();
           setFavourites(res?.favourites);
 
-          if (res?.favourites.includes(id)) setIsSaved(true);
+          if (
+            res?.favourites.filter((fav: { id: number }) => fav.id == id).length
+          )
+            setIsSaved(true);
         } else {
           // favSnap.data() will be undefined in this case
           console.log("No such document!");
@@ -83,7 +96,7 @@ const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
   // console.log(id, poster_path, name, isSaved);
   return (
     <SavedContext.Provider value={isSaved}>
-      <div className='hidden'>{`${id + poster_path + name}`}</div>
+      <div className='hidden'>{`${id + type + poster_path + name}`}</div>
       <button
         onClick={addToFavourites}
         className='w-4 h-4 flex justify-center items-center'
