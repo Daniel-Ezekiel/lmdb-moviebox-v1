@@ -1,31 +1,175 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SavedContext } from "../../../context/SaveContext";
 import { FavoriteBorderOutlined, FavoriteOutlined } from "@mui/icons-material";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  getDoc,
+} from "firebase/firestore";
 import { ModalToggleContext } from "../../../context/AuthModalContext";
 import { AuthContext } from "../../../context/AuthContext";
+import { User } from "firebase/auth";
+import { db } from "../../../config/firebase";
+import { ClipLoader } from "react-spinners";
+import { MovieProps, TVProps } from "../../../@types";
 
 interface FavButtonProps {
   id: number;
   type: string;
   poster_path: string;
   name?: string;
+  date?: string | null;
+  known_for?: MovieProps[] | TVProps[] | null;
 }
 
-const FavButton = ({ id, poster_path, name }: FavButtonProps) => {
+interface FavProps {
+  id: number;
+  type: string;
+}
+
+const FavButton = ({
+  id,
+  type,
+  poster_path,
+  name,
+  date,
+  known_for,
+}: FavButtonProps) => {
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [favourites, setFavourites] = useState<[]>([]);
+  const { currentUser }: { currentUser?: User } = useContext(AuthContext);
+
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
-  const isSaved = useContext(SavedContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setShowModal }: { setShowModal?: any } =
     useContext(ModalToggleContext);
-  function toggleModal() {
-    if (!isLoggedIn) setShowModal(true);
-  }
 
-  console.log(id, poster_path, name, isSaved);
+  const addToFavourites = async () => {
+    if (!isLoggedIn) setShowModal(true);
+
+    const favRef = doc(db, "users", (currentUser as User).uid);
+    try {
+      setIsLoading(true);
+      if (isLoggedIn && !isSaved && currentUser?.uid) {
+        type === "person"
+          ? await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                profile_path: poster_path,
+                original_name: name,
+                date,
+                known_for,
+              }),
+            })
+          : type === "movie"
+          ? await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                release_date: date,
+              }),
+            })
+          : await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                first_air_date: date,
+              }),
+            });
+
+        setIsSaved(!isSaved);
+      } else if (
+        isLoggedIn &&
+        isSaved &&
+        favourites.filter((fav) => (fav as FavProps).id == id).length
+      ) {
+        type === "person"
+          ? await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                profile_path: poster_path,
+                original_name: name,
+                date,
+                known_for,
+              }),
+            })
+          : type === "movie"
+          ? await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                release_date: date,
+              }),
+            })
+          : await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                first_air_date: date,
+              }),
+            });
+
+        setIsSaved(!isSaved);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const getFavData = async () => {
+      if (isLoggedIn && currentUser !== null) {
+        const favRef = doc(db, "users", currentUser!.uid);
+        const favSnap = await getDoc(favRef);
+
+        try {
+          if (favSnap.exists()) {
+            const res = favSnap.data();
+            setFavourites(res?.favourites);
+
+            if (
+              res?.favourites.filter((fav: { id: number }) => fav.id == id)
+                .length
+            )
+              setIsSaved(true);
+          } else {
+            // favSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    getFavData();
+  }, [currentUser, isSaved]);
   return (
     <SavedContext.Provider value={isSaved}>
-      <button onClick={toggleModal}>
-        {isSaved ? (
+      <button
+        onClick={addToFavourites}
+        className='w-4 h-4 flex justify-center items-center'
+      >
+        {isLoading ? (
+          <ClipLoader
+            color='#be123c'
+            cssOverride={{ width: "15px", height: "15px" }}
+          />
+        ) : isSaved && !isLoading ? (
           <FavoriteOutlined fontSize='large' sx={{ color: "#be123c" }} />
         ) : (
           <FavoriteBorderOutlined fontSize='large' sx={{ color: "#be123c" }} />

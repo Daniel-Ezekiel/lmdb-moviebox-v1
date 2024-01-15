@@ -4,7 +4,7 @@ import React from "react";
 import FavButton from "./FavButton";
 
 const PersonCard = ({ person }: { person: PersonProps }) => {
-  const knownFor: React.ReactNode[] = person.known_for.map(
+  const knownFor: React.ReactNode[] = person.known_for?.map(
     (knownFor, i, arr) => (
       <span key={knownFor.id}>
         {(knownFor as TVProps).name || (knownFor as MovieProps).title}
@@ -56,6 +56,8 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
           type='person'
           poster_path={person.profile_path}
           name={person.original_name}
+          date={null}
+          known_for={person.known_for}
         />
       </div>
     </div>

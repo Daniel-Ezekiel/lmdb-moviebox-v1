@@ -192,13 +192,17 @@ const Header = ({ activePage }: { activePage: string }) => {
               <div className='relative flex justify-center items-center'>
                 <button
                   onClick={toggleAuthDropDown}
-                  className='active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border-2 border-rose'
+                  className={`active:scale-90 transition-transform ease-in-out duration-300 shadow-lg rounded-full border-2 ${
+                    activePage === "home"
+                      ? "border-rose p-[0.3rem]"
+                      : "border-white p-[0.3rem]"
+                  }`}
                 >
                   {currentUser?.photoURL ? (
                     <img
                       src={currentUser?.photoURL}
                       alt='Profile picture'
-                      className='w-8 h-8 rounded-full'
+                      className='w-7 h-7 rounded-full'
                     />
                   ) : (
                     <AccountCircle sx={{ fontSize: "3rem" }} />
