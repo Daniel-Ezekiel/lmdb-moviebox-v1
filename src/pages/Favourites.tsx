@@ -160,10 +160,6 @@ const Favourites = () => {
             <option value='tv'>TV Shows</option>
             <option value='person'>People</option>
           </select>
-          {/* <button data-category='all' onClick={}>All</button>
-          <button data-category='movie' onClick={}>Movies</button>
-          <button data-category='tv' onClick={}>TV Shows</button>
-          <button data-category='people' onClick={}>People</button> */}
         </div>
 
         <div className='col-span-full mt-4 grid gap-4 xsm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
