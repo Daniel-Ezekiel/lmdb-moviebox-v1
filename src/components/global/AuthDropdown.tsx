@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import {
   FavoriteBorderRounded,
@@ -46,9 +46,11 @@ const AuthDropdown = ({
             <li className='w-full px-2 py-2 font-semibold border-b border-rose transition-all ease-in-out duration-300'>
               Hi, {currentUser?.displayName || currentUser?.email}
             </li>
-            <li className='w-full px-2 py-2 flex items-center gap-1 hover:bg-rose hover:text-white transition-all ease-in-out duration-300'>
-              <FavoriteBorderRounded fontSize='large' />
-              Favourites
+            <li className='w-full px-2 py-2 hover:bg-rose hover:text-white transition-all ease-in-out duration-300'>
+              <Link to='/favourites' className='flex items-center gap-1'>
+                <FavoriteBorderRounded fontSize='large' />
+                Favourites
+              </Link>
             </li>
             {/* <li className='w-full px-2 py-2 flex items-center gap-1 hover:bg-rose hover:text-white transition-all ease-in-out duration-300'>
               <ViewListRounded fontSize='large' />

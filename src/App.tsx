@@ -17,6 +17,7 @@ import { ModalToggleContext } from "../context/AuthModalContext";
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
+import Favourites from "./pages/Favourites";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/search/:keywordWithQuery",
     element: <Search />,
+  },
+  {
+    path: "/favourites",
+    element: <Favourites />,
   },
   {
     path: "/movies/:category",
@@ -84,8 +89,6 @@ function App() {
       setCurrentUser(user);
       setIsLoggedIn(true);
       setShowModal(false);
-      // ...
-      // console.log(currentUser);
     }
   });
 

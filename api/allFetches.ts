@@ -90,7 +90,10 @@ export async function getPopularPeople() {
 }
 
 // Get single movie details
-export async function getMovieOrTvDetails(type: string, movieID: string) {
+export async function getMovieOrTvDetails(
+  type: string,
+  movieID: number | string
+) {
   try {
     const res = await axios.get(
       `https://api.themoviedb.org/3/${type}/${movieID}?api_key=6f687067231f0a6ceb9c0cae600a334c`

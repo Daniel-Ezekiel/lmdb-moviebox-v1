@@ -49,6 +49,11 @@ const MovieTvCard = ({
           type={type}
           poster_path={movieOrTv.poster_path}
           name={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
+          date={
+            type === "movie"
+              ? (movieOrTv as MovieProps).release_date
+              : (movieOrTv as TVProps).first_air_date
+          }
         />
       </div>
     </div>

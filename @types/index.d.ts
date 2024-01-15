@@ -48,7 +48,7 @@ export interface PersonProps {
   id: number;
   gender: number;
   original_name: string;
-  known_for_department: string;
+  known_for_department?: string;
   profile_path: string;
   known_for: MovieProps[] | TVProps[];
 }

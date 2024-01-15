@@ -26,8 +26,6 @@ const Person = () => {
     queryFn: () => getPersonDetails(personId),
   });
 
-  console.log(!isLoading && !isError && data);
-
   return (
     <MainLayout showHeader={true} activePage='person' showFooter={true}>
       {!isLoading && !isError && (

@@ -13,12 +13,15 @@ import { AuthContext } from "../../../context/AuthContext";
 import { User } from "firebase/auth";
 import { db } from "../../../config/firebase";
 import { ClipLoader } from "react-spinners";
+import { MovieProps, TVProps } from "../../../@types";
 
 interface FavButtonProps {
   id: number;
   type: string;
   poster_path: string;
   name?: string;
+  date?: string | null;
+  known_for?: MovieProps[] | TVProps[] | null;
 }
 
 interface FavProps {
@@ -26,15 +29,20 @@ interface FavProps {
   type: string;
 }
 
-const FavButton = ({ id, type, poster_path, name }: FavButtonProps) => {
+const FavButton = ({
+  id,
+  type,
+  poster_path,
+  name,
+  date,
+  known_for,
+}: FavButtonProps) => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<[]>([]);
   const { currentUser }: { currentUser?: User } = useContext(AuthContext);
-  // console.log(currentUser);
 
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
-  // const isSaved = useContext(SavedContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setShowModal }: { setShowModal?: any } =
     useContext(ModalToggleContext);
@@ -46,9 +54,36 @@ const FavButton = ({ id, type, poster_path, name }: FavButtonProps) => {
     try {
       setIsLoading(true);
       if (isLoggedIn && !isSaved && currentUser?.uid) {
-        await updateDoc(favRef, {
-          favourites: arrayUnion({ id, type }),
-        });
+        type === "person"
+          ? await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                profile_path: poster_path,
+                original_name: name,
+                date,
+                known_for,
+              }),
+            })
+          : type === "movie"
+          ? await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                release_date: date,
+              }),
+            })
+          : await updateDoc(favRef, {
+              favourites: arrayUnion({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                first_air_date: date,
+              }),
+            });
 
         setIsSaved(!isSaved);
       } else if (
@@ -56,9 +91,36 @@ const FavButton = ({ id, type, poster_path, name }: FavButtonProps) => {
         isSaved &&
         favourites.filter((fav) => (fav as FavProps).id == id).length
       ) {
-        await updateDoc(favRef, {
-          favourites: arrayRemove({ id, type }),
-        });
+        type === "person"
+          ? await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                profile_path: poster_path,
+                original_name: name,
+                date,
+                known_for,
+              }),
+            })
+          : type === "movie"
+          ? await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                release_date: date,
+              }),
+            })
+          : await updateDoc(favRef, {
+              favourites: arrayRemove({
+                id,
+                type,
+                poster_path: poster_path,
+                name: name,
+                first_air_date: date,
+              }),
+            });
 
         setIsSaved(!isSaved);
       }
@@ -71,32 +133,33 @@ const FavButton = ({ id, type, poster_path, name }: FavButtonProps) => {
 
   useEffect(() => {
     const getFavData = async () => {
-      const favRef = doc(db, "users", currentUser!.uid);
-      const favSnap = await getDoc(favRef);
+      if (isLoggedIn && currentUser !== null) {
+        const favRef = doc(db, "users", currentUser!.uid);
+        const favSnap = await getDoc(favRef);
 
-      try {
-        if (favSnap.exists()) {
-          const res = favSnap.data();
-          setFavourites(res?.favourites);
+        try {
+          if (favSnap.exists()) {
+            const res = favSnap.data();
+            setFavourites(res?.favourites);
 
-          if (
-            res?.favourites.filter((fav: { id: number }) => fav.id == id).length
-          )
-            setIsSaved(true);
-        } else {
-          // favSnap.data() will be undefined in this case
-          console.log("No such document!");
+            if (
+              res?.favourites.filter((fav: { id: number }) => fav.id == id)
+                .length
+            )
+              setIsSaved(true);
+          } else {
+            // favSnap.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
     };
     getFavData();
   }, [currentUser, isSaved]);
-  // console.log(id, poster_path, name, isSaved);
   return (
     <SavedContext.Provider value={isSaved}>
-      <div className='hidden'>{`${id + type + poster_path + name}`}</div>
       <button
         onClick={addToFavourites}
         className='w-4 h-4 flex justify-center items-center'
