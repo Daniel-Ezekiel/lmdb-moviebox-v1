@@ -33,6 +33,7 @@ const SignUp = () => {
       await setDoc(doc(db, "users", res?.user.uid), {
         firstName,
         lastName,
+        favourites: [],
         email: res?.user.email,
         uid: res?.user.uid,
       });
@@ -67,6 +68,7 @@ const SignUp = () => {
       await setDoc(doc(db, "users", res?.user.uid), {
         firstName,
         lastName,
+        favourites: [],
         email: res?.user.email,
         uid: res?.user.uid,
       });
