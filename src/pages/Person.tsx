@@ -70,7 +70,7 @@ const Person = () => {
 
               <p className='mb-4 flex flex-col gap-2 text-base'>
                 <span className='font-semibold'>Aliases</span>
-                {data?.also_known_as.join(", ")}
+                {data?.also_known_as.join(", ") || "No known aliases"}
               </p>
 
               <p className='mb-4 flex flex-col gap-2 text-base'>
@@ -80,13 +80,16 @@ const Person = () => {
 
               <p className='mb-4 flex flex-col gap-2 text-base'>
                 <span className='font-semibold'>Date of Birth</span>
-                {formatDate(data?.birthday)} (
-                {!data?.death_day && calcAge(data?.birthday)} years old)
+                {formatDate(data?.birthday)}{" "}
+                {(!data?.death_day &&
+                  data?.birthday &&
+                  `(${calcAge(data?.birthday)} years old)`) ||
+                  ""}
               </p>
 
               <p className='mb-4 flex flex-col gap-2 text-base'>
                 <span className='font-semibold'>Birthplace</span>
-                {data?.place_of_birth}
+                {data?.place_of_birth || "No data available"}
               </p>
             </div>
           </section>
@@ -99,7 +102,7 @@ const Person = () => {
               </h2>
               <div>
                 <p className='max-h-[37.5rem] pb-4 overflow-auto text-base'>
-                  {data?.biography}
+                  {data?.biography || "No information to display"}
                 </p>
               </div>
             </div>

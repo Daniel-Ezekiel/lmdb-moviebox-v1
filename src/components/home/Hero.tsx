@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getNowPlaying } from "../../../api/allFetches";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowForwardIos, PlayCircle } from "@mui/icons-material";
+import { ArrowBack, ArrowForwardIos, PlayCircle } from "@mui/icons-material";
 import Header from "../global/Header";
 import { MovieProps } from "../../../@types";
+import FavButton from "../global/FavButton";
 
 const Hero = () => {
   const [currMoviePos, setCurrMoviePos] = useState<number>(4);
@@ -58,13 +59,29 @@ const Hero = () => {
           <Header activePage='home' />
           <div className='max-w-[124rem] mx-auto flex items-center w-full p-3 z-[1] xl:px-3'>
             <div className='max-w-[50rem] grid grid-cols-2 gap-2'>
-              <h1 className='col-span-full font-bold text-3xl xl:text-5xl'>
+              <h1 className='col-span-full flex gap-2 font-bold text-3xl xl:text-5xl'>
                 {movie.title}
+                <span
+                  className='col-span-2 w-8 h-8 flex justify-center items-center gap-1 bg-rose rounded-full text-base cursor-default'
+                  title='Ratings'
+                >
+                  {(movie.vote_average * 10).toPrecision(2)}%
+                </span>
               </h1>
 
-              <span className='col-span-2 flex items-center gap-1'>
-                Rating: {(movie.vote_average * 10).toPrecision(2)}%
-              </span>
+              <div className='flex items-center gap-1'>
+                <div className='w-fit rounded-full p-[0.3rem] bg-white'>
+                  <FavButton
+                    id={movie.id}
+                    type='movie'
+                    poster_path={movie.poster_path}
+                    name={movie.title}
+                    date={movie.release_date}
+                  />
+                </div>
+                <ArrowBack className='animate-pulse' fontSize='large' /> Add to
+                Favourites
+              </div>
 
               <p className='col-span-full my-2'>{movie.overview}</p>
 

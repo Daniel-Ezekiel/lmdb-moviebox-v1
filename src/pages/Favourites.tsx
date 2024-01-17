@@ -16,14 +16,6 @@ interface FavProps {
   poster_path: string;
 }
 
-// interface FavPersonProps {
-//   id: number;
-//   type: string;
-//   original_name: string;
-//   date: string | null;
-//   profile_path: string;
-// }
-
 const Favourites = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [category, setCategory] = useState("all");
@@ -31,39 +23,6 @@ const Favourites = () => {
 
   const { currentUser }: { currentUser?: User } = useContext(AuthContext);
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
-
-  /**
-  const dataToDisplay =
-    category === "movie"
-      ? favourites.map((fav) => (
-          <MovieTvCard
-            key={(fav as MovieProps).id}
-            type='movie'
-            movieOrTv={fav}
-          />
-        ))
-      : category === "tv"
-      ? favourites.map((fav) => (
-          <MovieTvCard key={(fav as TVProps).id} type='tv' movieOrTv={fav} />
-        ))
-      : category === "all"
-      ? favourites.map((fav) => {
-          return (fav as FavProps).type == "movie" ? (
-            <MovieTvCard
-              key={(fav as MovieProps).id}
-              type='movie'
-              movieOrTv={fav}
-            />
-          ) : (fav as FavProps).type == "tv" ? (
-            <MovieTvCard key={(fav as TVProps).id} type='tv' movieOrTv={fav} />
-          ) : (
-            <PersonCard key={(fav as PersonProps).id} person={fav} />
-          );
-        })
-      : favourites.map((fav) => (
-          <PersonCard key={(fav as PersonProps).id} person={fav} />
-        ));
-    **/
 
   const dataToDisplay: React.ReactNode[] =
     category === "all"

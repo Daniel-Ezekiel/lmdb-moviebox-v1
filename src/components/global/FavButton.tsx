@@ -163,6 +163,7 @@ const FavButton = ({
       <button
         onClick={addToFavourites}
         className='w-4 h-4 flex justify-center items-center'
+        title='Add to favourites'
       >
         {isLoading ? (
           <ClipLoader

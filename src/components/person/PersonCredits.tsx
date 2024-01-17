@@ -134,6 +134,7 @@ const PersonCredits = ({
                       />
                     )
                   )}
+                  {!comboCredits.data.crew.length && "No credits to display"}
                 </div>
               </div>
             )}
@@ -156,6 +157,8 @@ const PersonCredits = ({
                       movieOrTv={movieOrTv}
                     />
                   ))}
+                  {!movieCredits.data.cast.length &&
+                    "No movie credits to display"}
                 </div>
               </div>
             )}
@@ -178,6 +181,7 @@ const PersonCredits = ({
                       movieOrTv={movieOrTv}
                     />
                   ))}
+                  {!tvCredits.data.cast.length && "No tv credits to display"}
                 </div>
               </div>
             )}
