@@ -16,7 +16,7 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
   return (
     <div
       key={person.id}
-      className='relative shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
+      className='relative min-w-[16.5rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
       <Link
         to={`/person/${person.original_name

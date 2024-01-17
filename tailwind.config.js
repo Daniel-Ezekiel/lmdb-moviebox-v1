@@ -55,7 +55,7 @@ export default {
     },
 
     screens: {
-      xsm: "400px",
+      xsm: "375px",
       sm: "540px",
       md: "768px",
       lg: "1024px",
@@ -66,4 +66,3 @@ export default {
   },
   plugins: [],
 };
-
