@@ -4,7 +4,11 @@ import { Google } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { auth, db, googleProvider } from "../../config/firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -34,7 +38,9 @@ const SignIn = () => {
     }
   };
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     try {
       setIsLoading(true);
       const res = await signInWithPopup(auth, googleProvider);
@@ -62,6 +68,20 @@ const SignIn = () => {
       setIsLoading(false);
       console.error(error);
     } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.log("Reset password email sent.");
       setIsLoading(false);
     }
   };
@@ -123,7 +143,13 @@ const SignIn = () => {
               Sign up.
             </Link>
           </p>
-          <button className='text-rose underline'>Forgot Password?</button>
+          <button
+            className='text-rose underline'
+            type='button'
+            onClick={resetPassword}
+          >
+            Forgot Password?
+          </button>
         </div>
 
         <button
