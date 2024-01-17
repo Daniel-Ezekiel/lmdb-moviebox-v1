@@ -7,7 +7,7 @@ import {
   //   ViewListRounded,
 } from "@mui/icons-material";
 import { auth, db } from "../../../config/firebase";
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 interface UserInfoProps {
@@ -28,7 +28,7 @@ const AuthDropdown = ({
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setIsLoggedIn }: { setIsLoggedIn?: any } = useContext(AuthContext);
-  const { currentUser }: { currentUser?: User } = useContext(AuthContext);
+  // const { currentUser }: { currentUser?: User } = useContext(AuthContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { setCurrentUser }: { setCurrentUser?: any } = useContext(AuthContext);
 
