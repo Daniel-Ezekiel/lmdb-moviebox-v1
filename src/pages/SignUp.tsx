@@ -1,9 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import { Google } from "@mui/icons-material";
+import { Google, Person } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { auth, googleProvider, db } from "../../config/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInAnonymously,
+  signInWithPopup,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../context/AuthContext";
@@ -77,6 +81,34 @@ const SignUp = () => {
       navigate("/");
       console.log(await signInWithPopup(auth, googleProvider));
     } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInAsGuest = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    try {
+      setIsLoading(true);
+      const res = await signInAnonymously(auth);
+
+      const firstName: string | undefined = "Guest";
+      const lastName: string | undefined = "";
+
+      await setDoc(doc(db, "users", res?.user.uid), {
+        firstName,
+        lastName,
+        favourites: [],
+        email: res?.user.email,
+        uid: res?.user.uid,
+      });
+
+      setIsLoggedIn(true);
+      navigate("/");
+    } catch (error) {
+      setIsLoading(false);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -173,7 +205,7 @@ const SignUp = () => {
           </button>
         </form>
 
-        <div className='flex justify-between mt-2 text-[1.2rem]'>
+        <div className='flex justify-between mt-2 font-semibold text-[1.2rem]'>
           <p>
             Already have an account?{" "}
             <Link to='/sign-in' className='text-rose underline'>
@@ -182,12 +214,33 @@ const SignUp = () => {
           </p>
         </div>
 
+        <div className='mt-6 h-[0.15rem] w-full bg-gray-300'></div>
+
         <button
           className='mt-6 flex justify-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'
           onClick={signInWithGoogle}
         >
-          <Google fontSize='large' />
-          Continue with Google
+          {isLoading ? (
+            <ClipLoader color='black' />
+          ) : (
+            <>
+              <Google fontSize='large' />
+              Continue with Google
+            </>
+          )}
+        </button>
+
+        <button
+          className='mt-3 flex justify-center items-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'
+          onClick={signInAsGuest}
+        >
+          {isLoading ? (
+            <ClipLoader color='black' />
+          ) : (
+            <>
+              <Person fontSize='large' /> Continue as Guest
+            </>
+          )}
         </button>
       </section>
     </MainLayout>
