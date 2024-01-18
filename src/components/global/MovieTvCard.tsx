@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MovieProps, TVProps } from "../../../@types";
 import { formatDate } from "../../../utils/formatDate";
 import FavButton from "./FavButton";
+import Rating from "./Rating";
 
 const MovieTvCard = ({
   type,
@@ -15,7 +16,7 @@ const MovieTvCard = ({
       key={movieOrTv.id}
       className='relative min-w-[16.5rem] shadow-lg rounded-xl border border-gray-200 overflow-hidden sm:min-w-[20rem]'
     >
-      <Link to={`/${type}/${movieOrTv.id}`}>
+      <Link to={`/${type}/${movieOrTv.id}`} className='relative'>
         <img
           src={
             movieOrTv.poster_path
@@ -27,8 +28,9 @@ const MovieTvCard = ({
             movieOrTv.poster_path ? "object-top" : "object-center"
           } object-cover sm:h-[33rem]`}
         />
+        <Rating rating={movieOrTv.vote_average} classNames='bg-white text-lg' />
       </Link>
-      <div className='p-2 text-base'>
+      <div className='mt-4 px-2 text-base'>
         <Link to={`/${type}/${movieOrTv.id}`}>
           <h3 className='font-semibold'>
             {(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}

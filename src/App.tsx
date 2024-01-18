@@ -18,6 +18,7 @@ import { useState } from "react";
 import { auth } from "../config/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import Favourites from "./pages/Favourites";
+import PrivateRoute from "./components/global/PrivateRoute";
 
 const queryClient: QueryClient = new QueryClient();
 
@@ -28,11 +29,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-in",
-    element: <SignIn />,
+    element: (
+      <PrivateRoute>
+        <SignIn />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/sign-up",
-    element: <SignUp />,
+    element: (
+      <PrivateRoute>
+        <SignUp />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/search/:keywordWithQuery",
@@ -40,7 +49,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/favourites",
-    element: <Favourites />,
+    element: (
+      <PrivateRoute>
+        <Favourites />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/movies/:category",

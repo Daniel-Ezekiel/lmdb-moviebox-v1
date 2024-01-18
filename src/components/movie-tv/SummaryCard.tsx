@@ -1,6 +1,7 @@
 import { MovieProps, TVProps } from "../../../@types";
 import { formatDate } from "../../../utils/formatDate";
 import FavButton from "../global/FavButton";
+import Rating from "../global/Rating";
 
 type GenreProps = {
   id: number;
@@ -50,10 +51,14 @@ const SummaryCard = ({
                 }
                 className='shadow-xl rounded-2xl'
               />
-              <span
+              {/* <span
                 className='absolute -bottom-5 right-1/2 translate-x-1/2 w-9 h-9 place-self-center p-2 rounded-full bg-rose font-medium text-base text-gray-100'
                 title='Movie Rating'
-              >{`${Math.ceil(movieOrTv?.vote_average * 10)}%`}</span>
+              >{`${Math.ceil(movieOrTv?.vote_average * 10)}%`}</span> */}
+              <Rating
+                rating={movieOrTv?.vote_average}
+                classNames='bg-rose text-white w-9 h-9'
+              />
             </div>
 
             <div className='mt-4 px-2 max-w-[30rem]'>
