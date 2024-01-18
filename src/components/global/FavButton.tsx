@@ -41,6 +41,7 @@ const FavButton = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<[]>([]);
   const { currentUser }: { currentUser?: User } = useContext(AuthContext);
+  console.log(currentUser);
 
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -170,7 +171,7 @@ const FavButton = ({
             color='#be123c'
             cssOverride={{ width: "15px", height: "15px" }}
           />
-        ) : isSaved && !isLoading ? (
+        ) : isSaved && currentUser && !isLoading ? (
           <FavoriteOutlined fontSize='large' sx={{ color: "#be123c" }} />
         ) : (
           <FavoriteBorderOutlined fontSize='large' sx={{ color: "#be123c" }} />

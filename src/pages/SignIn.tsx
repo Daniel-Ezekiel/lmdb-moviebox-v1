@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { auth, db, googleProvider } from "../../config/firebase";
 import {
   sendPasswordResetEmail,
+  // signInAnonymously,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -71,6 +72,34 @@ const SignIn = () => {
       setIsLoading(false);
     }
   };
+
+  // const signInAsGuest = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     setIsLoading(true);
+  //     const res = await signInAnonymously(auth);
+
+  //     const firstName: string | undefined = "Guest";
+  //     const lastName: string | undefined = "";
+
+  //     await setDoc(doc(db, "users", res?.user.uid), {
+  //       firstName,
+  //       lastName,
+  //       favourites: [],
+  //       email: res?.user.email,
+  //       uid: res?.user.uid,
+  //     });
+
+  //     setIsLoggedIn(true);
+  //     navigate("/");
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const resetPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -164,6 +193,19 @@ const SignIn = () => {
             </>
           )}
         </button>
+
+        {/* <button
+          className='mt-6 flex justify-center items-center gap-2 w-full border border-gray-400 p-3 text-center text-base active:scale-90 transition-transform ease-in-out duration-300'
+          onClick={signInAsGuest}
+        >
+          {isLoading ? (
+            <ClipLoader color='black' />
+          ) : (
+            <>
+              <Person fontSize='large' /> Continue as Guest
+            </>
+          )}
+        </button> */}
       </section>
     </MainLayout>
   );
