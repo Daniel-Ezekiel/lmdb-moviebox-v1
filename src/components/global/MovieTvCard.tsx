@@ -51,6 +51,10 @@ const MovieTvCard = ({
           type={type}
           poster_path={movieOrTv.poster_path}
           name={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
+          rating={
+            (movieOrTv as MovieProps).vote_average ||
+            (movieOrTv as TVProps).vote_average
+          }
           date={
             type === "movie"
               ? (movieOrTv as MovieProps).release_date

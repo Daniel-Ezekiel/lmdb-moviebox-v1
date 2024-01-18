@@ -21,6 +21,7 @@ interface FavButtonProps {
   poster_path: string;
   name?: string;
   date?: string | null;
+  rating?: number | null;
   known_for?: MovieProps[] | TVProps[] | null;
 }
 
@@ -35,13 +36,13 @@ const FavButton = ({
   poster_path,
   name,
   date,
+  rating,
   known_for,
 }: FavButtonProps) => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<[]>([]);
   const { currentUser }: { currentUser?: User } = useContext(AuthContext);
-  console.log(currentUser);
 
   const { isLoggedIn }: { isLoggedIn?: boolean } = useContext(AuthContext);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,6 +75,7 @@ const FavButton = ({
                 poster_path: poster_path,
                 name: name,
                 release_date: date,
+                vote_average: rating,
               }),
             })
           : await updateDoc(favRef, {
@@ -83,6 +85,7 @@ const FavButton = ({
                 poster_path: poster_path,
                 name: name,
                 first_air_date: date,
+                vote_average: rating,
               }),
             });
 
@@ -111,6 +114,7 @@ const FavButton = ({
                 poster_path: poster_path,
                 name: name,
                 release_date: date,
+                vote_average: rating,
               }),
             })
           : await updateDoc(favRef, {
@@ -120,6 +124,7 @@ const FavButton = ({
                 poster_path: poster_path,
                 name: name,
                 first_air_date: date,
+                vote_average: rating,
               }),
             });
 
@@ -158,7 +163,7 @@ const FavButton = ({
       }
     };
     getFavData();
-  }, [currentUser, isSaved]);
+  }, [currentUser, isSaved, id]);
   return (
     <SavedContext.Provider value={isSaved}>
       <button

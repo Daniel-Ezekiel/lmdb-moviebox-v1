@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getNowPlaying } from "../../../api/allFetches";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowBack, ArrowForwardIos, PlayCircle } from "@mui/icons-material";
+import { ArrowForwardIos, PlayCircle } from "@mui/icons-material";
 import Header from "../global/Header";
 import { MovieProps } from "../../../@types";
-import FavButton from "../global/FavButton";
+// import FavButton from "../global/FavButton";
 
 const Hero = () => {
   const [currMoviePos, setCurrMoviePos] = useState<number>(4);
@@ -22,14 +22,6 @@ const Hero = () => {
       ? setCurrMoviePos(0)
       : setCurrMoviePos((prevPos) => prevPos + 1);
   }
-
-  // if (isError) {
-  //   return (
-  //     <div className='max-w-[124rem] mx-auto p-3'>
-  //       Error! Could not fetch movies
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -69,7 +61,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <div className='flex items-center gap-1'>
+              {/* <div className='flex items-center gap-1'>
                 <div className='w-fit rounded-full p-[0.3rem] bg-white'>
                   <FavButton
                     id={movie.id}
@@ -81,7 +73,7 @@ const Hero = () => {
                 </div>
                 <ArrowBack className='animate-pulse' fontSize='large' /> Add to
                 Favourites
-              </div>
+              </div> */}
 
               <p className='col-span-full my-2'>{movie.overview}</p>
 
