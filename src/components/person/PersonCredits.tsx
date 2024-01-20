@@ -36,8 +36,6 @@ const PersonCredits = ({
       },
     ],
   });
-  // console.log(movieCredits?.data, tvCredits, comboCredits);
-
   return (
     <>
       {knownFor === "Acting" && (
@@ -55,7 +53,7 @@ const PersonCredits = ({
                 <div className='flex gap-3 overflow-x-scroll'>
                   {movieCredits.data.cast.map((movieOrTv: MovieProps) => (
                     <MovieTvCard
-                      key={movieOrTv.id}
+                      key={`movie-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                       type='movie'
                       movieOrTv={movieOrTv}
                     />
@@ -77,7 +75,7 @@ const PersonCredits = ({
                 <div className='flex gap-3 overflow-x-scroll'>
                   {tvCredits.data.cast.map((movieOrTv: TVProps) => (
                     <MovieTvCard
-                      key={movieOrTv.id}
+                      key={`tv-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                       type='tv'
                       movieOrTv={movieOrTv}
                     />
@@ -100,7 +98,7 @@ const PersonCredits = ({
                   {comboCredits.data.crew.map(
                     (movieOrTv: MovieProps | TVProps) => (
                       <MovieTvCard
-                        key={movieOrTv.id}
+                        key={`combo-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                         type={movieOrTv?.media_type}
                         movieOrTv={movieOrTv}
                       />
@@ -128,7 +126,7 @@ const PersonCredits = ({
                   {comboCredits.data.crew.map(
                     (movieOrTv: MovieProps | TVProps) => (
                       <MovieTvCard
-                        key={movieOrTv.id}
+                        key={`combo-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                         type={movieOrTv?.media_type}
                         movieOrTv={movieOrTv}
                       />
@@ -152,7 +150,7 @@ const PersonCredits = ({
                 <div className='flex gap-3 overflow-x-scroll'>
                   {movieCredits.data.cast.map((movieOrTv: MovieProps) => (
                     <MovieTvCard
-                      key={movieOrTv.id}
+                      key={`movie-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                       type='movie'
                       movieOrTv={movieOrTv}
                     />
@@ -176,7 +174,7 @@ const PersonCredits = ({
                 <div className='flex gap-3 overflow-x-scroll'>
                   {tvCredits.data.cast.map((movieOrTv: TVProps) => (
                     <MovieTvCard
-                      key={movieOrTv.id}
+                      key={`tv-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
                       type='tv'
                       movieOrTv={movieOrTv}
                     />

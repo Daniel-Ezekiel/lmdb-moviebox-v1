@@ -37,6 +37,11 @@ const CastMemberCard = ({ castMember }: { castMember: CastMemberProps }) => {
             {castMember.original_name}
           </h3>
           <span className='text-sm text-blue-100'>{castMember.character}</span>
+          {castMember.job ? (
+            <span className='text-sm text-blue-100'>{castMember.job}</span>
+          ) : (
+            ""
+          )}
         </Link>
       </div>
       <div
@@ -49,6 +54,8 @@ const CastMemberCard = ({ castMember }: { castMember: CastMemberProps }) => {
           poster_path={castMember.profile_path}
           name={castMember.original_name}
           date={null}
+          known_for={null}
+          // rating={null}
         />
       </div>
     </div>

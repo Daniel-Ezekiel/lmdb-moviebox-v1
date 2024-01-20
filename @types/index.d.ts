@@ -17,6 +17,7 @@ export interface MainLayoutContextProps {
 
 export interface MovieProps {
   id: number;
+  credit_id?: string;
   backdrop_path: string;
   poster_path: string;
   title?: string;
@@ -28,10 +29,12 @@ export interface MovieProps {
   genres: { id: number; name: string };
   runtime: number;
   media_type: string;
+  department?: string;
 }
 
 export interface TVProps {
   id: number;
+  credit_id?: string;
   backdrop_path: string;
   poster_path: string;
   name?: string;
@@ -42,6 +45,7 @@ export interface TVProps {
   number_of_episodes: number;
   status: string;
   media_type: string;
+  department?: string;
 }
 
 export interface PersonProps {
@@ -85,4 +89,5 @@ export interface CastMemberProps {
   original_name: string;
   character: string;
   profile_path: string;
+  job?: string;
 }

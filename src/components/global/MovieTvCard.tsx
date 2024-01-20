@@ -26,14 +26,22 @@ const MovieTvCard = ({
           alt={(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
           className={`w-full ${
             movieOrTv.poster_path ? "object-top" : "object-center"
-          } object-cover sm:h-[33rem]`}
+          } object-cover sm:min-h-[33rem] sm:max-h-[33rem]`}
         />
         <Rating rating={movieOrTv.vote_average} classNames='bg-white text-lg' />
       </Link>
-      <div className='mt-4 px-2 text-base'>
+      <div className='my-4 px-2 text-base'>
         <Link to={`/${type}/${movieOrTv.id}`}>
-          <h3 className='font-semibold'>
+          <h3 className='font-semibold text-rose'>
             {(movieOrTv as MovieProps).title || (movieOrTv as TVProps).name}
+            {movieOrTv.department ? (
+              <span className='text-sm font-medium text-blue-100'>
+                {" "}
+                ({movieOrTv.department})
+              </span>
+            ) : (
+              ""
+            )}
           </h3>
         </Link>
         <span>

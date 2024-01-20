@@ -58,6 +58,7 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
           name={person.original_name}
           date={null}
           known_for={person.known_for}
+          // rating={null}
         />
       </div>
     </div>

@@ -23,6 +23,8 @@ const CastAndCrew = ({ type }: { type: string }) => {
     ],
   });
 
+  console.log(castAndCrew);
+
   return (
     <MainLayout activePage='cast-and-crew' showHeader={true} showFooter={true}>
       {
