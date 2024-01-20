@@ -39,7 +39,7 @@ const CastAndCrew = ({ type }: { type: string }) => {
             <>
               <section className='max-w-[124rem] mx-auto mt-10'>
                 <h2 className='mb-3 font-semibold text-2xl text-rose'>Cast</h2>
-                <div className='grid gap-4 grid-cols-2 md:grid-cols-4 lg:gap-7 lg:grid-cols-5 xl:grid-cols-6'>
+                <div className='grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-7 lg:grid-cols-5 xl:grid-cols-6'>
                   {!castAndCrew.data.cast.length && (
                     <p className='text-base'>No information to display</p>
                   )}
@@ -51,7 +51,7 @@ const CastAndCrew = ({ type }: { type: string }) => {
 
               <section className='max-w-[124rem] mx-auto mt-10'>
                 <h2 className='mb-3 font-semibold text-2xl text-rose'>Crew</h2>
-                <div className='grid gap-4 grid-cols-2 xsm:grid-cols-3 md:grid-cols-4 lg:gap-7 lg:grid-cols-5 xl:grid-cols-6'>
+                <div className='grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-7 lg:grid-cols-5 xl:grid-cols-6'>
                   {!castAndCrew.data.crew.length && (
                     <p className='text-base'>No information to display</p>
                   )}
