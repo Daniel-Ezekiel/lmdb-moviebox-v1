@@ -57,7 +57,6 @@ const PersonCard = ({ person }: { person: PersonProps }) => {
           poster_path={person.profile_path}
           name={person.original_name}
           date={null}
-          known_for={person.known_for}
           // rating={null}
         />
       </div>

@@ -54,7 +54,6 @@ const CastMemberCard = ({ castMember }: { castMember: CastMemberProps }) => {
           poster_path={castMember.profile_path}
           name={castMember.original_name}
           date={null}
-          known_for={null}
           // rating={null}
         />
       </div>

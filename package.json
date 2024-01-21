@@ -21,7 +21,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "react-spinners": "^0.13.8",
-    "react-toastify": "^10.0.3"
+    "react-toastify": "^10.0.4"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.8.4",

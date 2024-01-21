@@ -37,7 +37,6 @@ const FavButton = ({
   name,
   date,
   rating,
-  known_for,
 }: FavButtonProps) => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -64,7 +63,6 @@ const FavButton = ({
                 profile_path: poster_path,
                 original_name: name,
                 date,
-                known_for,
               }),
             })
           : type === "movie"
@@ -103,7 +101,6 @@ const FavButton = ({
                 profile_path: poster_path,
                 original_name: name,
                 date,
-                known_for,
               }),
             })
           : type === "movie"

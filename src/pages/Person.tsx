@@ -42,7 +42,7 @@ const Person = () => {
                     : "/movie-poster-placeholder.svg"
                 }
                 alt={data.name}
-                className='w-full h-full rounded-lg object-center object-cover'
+                className='w-full h-full rounded-lg object-center object-cover md:h-[28rem] lg:h-[30rem] xl:h-[36rem]'
               />
               <div
                 className='w-fit absolute top-2 right-[0.8rem] bg-white p-[0.3rem] rounded-full opacity-30 hover:opacity-95 transition-opacity ease-in-out duration-300'
@@ -52,7 +52,9 @@ const Person = () => {
                   id={data.id}
                   type='person'
                   poster_path={data.profile_path}
-                  name={data.original_name}
+                  name={data.name}
+                  date={null}
+                  rating={null}
                 />
               </div>
             </div>
