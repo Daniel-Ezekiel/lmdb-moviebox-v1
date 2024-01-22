@@ -59,14 +59,15 @@ export async function getUpcoming() {
 // Fetch by URl
 export async function getByURL(
   type: string = "movie",
-  categoryParam: string | null = "now-playing"
+  categoryParam: string | null = "now-playing",
+  { pageParam }: { pageParam: number }
 ) {
   let url: string;
   // const categoryParam: string = category?.split("-").join("_");
   if (categoryParam === "trending") {
-    url = `https://api.themoviedb.org/3/${categoryParam}/${type}/week?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+    url = `https://api.themoviedb.org/3/${categoryParam}/${type}/week?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c`;
   } else {
-    url = `https://api.themoviedb.org/3/${type}/${categoryParam}?api_key=6f687067231f0a6ceb9c0cae600a334c`;
+    url = `https://api.themoviedb.org/3/${type}/${categoryParam}?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c`;
   }
 
   try {

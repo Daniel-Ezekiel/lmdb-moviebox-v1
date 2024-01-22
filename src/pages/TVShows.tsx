@@ -2,23 +2,43 @@ import { MovieProps, TVProps } from "../../@types";
 import MainLayout from "../layout/MainLayout";
 import { getByURL } from "../../api/allFetches";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import SkeletonCard from "../components/global/SkeletonCard";
 import MovieTvCard from "../components/global/MovieTvCard";
+import { Fragment } from "react";
+import { ClipLoader } from "react-spinners";
 
 const Movies = () => {
   const { category } = useParams();
 
-  const { isLoading, isError, data } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: [`tv-${category}`],
-    queryFn: () => getByURL("tv", category?.split("-").join("_")),
+    queryFn: ({ pageParam }) =>
+      getByURL("tv", category?.split("-").join("_"), { pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      } else {
+        return undefined;
+      }
+    },
   });
 
-  const tvShows: React.ReactNode[] = data?.results.map(
-    (movieOrTv: MovieProps | TVProps) => (
-      <MovieTvCard key={movieOrTv.id} type='tv' movieOrTv={movieOrTv} />
-    )
-  );
+  const tvShows = data?.pages.map((page, i) => (
+    <Fragment key={i}>
+      {page.results.map((movieOrTv: MovieProps | TVProps) => (
+        <MovieTvCard key={movieOrTv.id} type='tv' movieOrTv={movieOrTv} />
+      ))}
+    </Fragment>
+  ));
 
   return (
     <MainLayout showHeader={true} activePage='movies' showFooter={true}>
@@ -44,6 +64,19 @@ const Movies = () => {
             .map((_, i) => <SkeletonCard key={i} />)}
 
         {!isLoading && tvShows}
+        {hasNextPage && (
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+            className='col-span-full w-[12rem] mt-6 p-3 flex justify-center items-center place-self-center bg-rose rounded-xl shadow-xl font-medium uppercase text-base text-white active:scale-90 transition-transform ease-in-out duration-300'
+          >
+            {isFetchingNextPage ? (
+              <ClipLoader size={20} color='white' />
+            ) : (
+              "Load more"
+            )}
+          </button>
+        )}
       </section>
     </MainLayout>
   );
