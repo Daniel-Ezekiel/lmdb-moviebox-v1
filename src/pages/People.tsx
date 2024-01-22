@@ -5,7 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import PersonCard from "../components/global/PersonCard";
 import SkeletonCard from "../components/global/SkeletonCard";
 import { Fragment } from "react";
-import { CircleLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 
 const People = () => {
   const {
@@ -68,7 +68,7 @@ const People = () => {
             className='col-span-full w-[12rem] mt-6 p-3 flex justify-center items-center place-self-center bg-rose rounded-xl shadow-xl font-medium uppercase text-base text-white active:scale-90 transition-transform ease-in-out duration-300'
           >
             {isFetchingNextPage ? (
-              <CircleLoader size={20} color='white' />
+              <ClipLoader size={20} color='white' />
             ) : (
               "Load more"
             )}
