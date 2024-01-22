@@ -1,18 +1,41 @@
 import { PersonProps } from "../../@types";
 import MainLayout from "../layout/MainLayout";
 import { getPopularPeople } from "../../api/allFetches";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import PersonCard from "../components/global/PersonCard";
 import SkeletonCard from "../components/global/SkeletonCard";
+import { Fragment } from "react";
+import { CircleLoader } from "react-spinners";
 
 const People = () => {
-  const { isLoading, isError, data } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: [`popular-people`],
     queryFn: getPopularPeople,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      } else {
+        return undefined;
+      }
+    },
   });
 
-  const people: React.ReactNode[] = data?.results.map((person: PersonProps) => (
-    <PersonCard key={person.id} person={person} />
+  console.log(!isLoading && data);
+
+  const people = data?.pages.map((page, i) => (
+    <Fragment key={i}>
+      {page.results.map((person: PersonProps) => (
+        <PersonCard key={person.id} person={person} />
+      ))}
+    </Fragment>
   ));
 
   return (
@@ -37,6 +60,20 @@ const People = () => {
             .map((_, i) => <SkeletonCard key={i} />)}
 
         {!isLoading && people}
+
+        {hasNextPage && (
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+            className='col-span-full w-[12rem] mt-6 p-3 flex justify-center items-center place-self-center bg-rose rounded-xl shadow-xl font-medium uppercase text-base text-white active:scale-90 transition-transform ease-in-out duration-300'
+          >
+            {isFetchingNextPage ? (
+              <CircleLoader size={20} color='white' />
+            ) : (
+              "Load more"
+            )}
+          </button>
+        )}
       </section>
     </MainLayout>
   );

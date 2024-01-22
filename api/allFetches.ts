@@ -78,10 +78,10 @@ export async function getByURL(
 }
 
 // Fetch Popular people
-export async function getPopularPeople() {
+export async function getPopularPeople({ pageParam }: { pageParam: number }) {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/person/popular?api_key=6f687067231f0a6ceb9c0cae600a334c`
+      `https://api.themoviedb.org/3/person/popular?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c`
     );
     return res.data;
   } catch (err) {
