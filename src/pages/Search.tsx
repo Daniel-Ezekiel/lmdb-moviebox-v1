@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import MainLayout from "../layout/MainLayout";
 import { useSearchParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { searchByURL } from "../../api/allFetches";
 import { MovieProps, PersonProps, TVProps } from "../../@types";
 import MovieTvCard from "../components/global/MovieTvCard";
 import PersonCard from "../components/global/PersonCard";
+import { ClipLoader } from "react-spinners";
 
 const Search = () => {
   // const { keywordWithQuery } = useParams();
@@ -13,10 +14,29 @@ const Search = () => {
 
   const [category, setCategory] = useState("movie");
 
-  const { isLoading, isError, data } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data,
+    isFetched,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: [`${searchParams.getAll("q")[0]}-${category}-search`],
-    queryFn: () => searchByURL(category, searchParams.getAll("q")[0]),
+    queryFn: ({ pageParam }) =>
+      searchByURL(category, searchParams.getAll("q")[0], { pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      } else {
+        return undefined;
+      }
+    },
   });
+
+  console.log(data?.pages);
 
   return (
     <MainLayout showHeader={true} activePage='search' showFooter={true}>
@@ -51,32 +71,54 @@ const Search = () => {
         </div>
 
         <div className='col-span-full mt-4 grid gap-4 xsm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-          {!isLoading && !isError && !data.results.length && (
+          {!isLoading &&
+          !isError &&
+          isFetched &&
+          data?.pages[0].results.length ? (
+            data?.pages.map((page, i) => (
+              <Fragment key={i}>
+                {page.results.map((item: MovieProps | TVProps | PersonProps) =>
+                  category === "movie" ? (
+                    <MovieTvCard
+                      key={item.id}
+                      type='movie'
+                      movieOrTv={item as MovieProps}
+                    />
+                  ) : category === "tv" ? (
+                    <MovieTvCard
+                      key={item.id}
+                      type='tv'
+                      movieOrTv={item as TVProps}
+                    />
+                  ) : (
+                    <PersonCard key={item.id} person={item as PersonProps} />
+                  )
+                )}
+              </Fragment>
+            ))
+          ) : (
             <p className=' col-span-full place-self-center text-base'>
-              No results for this category
+              No{" "}
+              <span className='capitalize'>
+                {category === "tv" ? "TV Show" : category}
+              </span>{" "}
+              with that name or title.
             </p>
           )}
 
-          {!isLoading &&
-            !isError &&
-            data.results.length &&
-            data.results.map((item: MovieProps | TVProps | PersonProps) =>
-              category === "movie" ? (
-                <MovieTvCard
-                  key={item.id}
-                  type='movie'
-                  movieOrTv={item as MovieProps}
-                />
-              ) : category === "tv" ? (
-                <MovieTvCard
-                  key={item.id}
-                  type='tv'
-                  movieOrTv={item as TVProps}
-                />
+          {hasNextPage && (
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
+              className='col-span-full w-[12rem] mt-6 p-3 flex justify-center items-center place-self-center bg-rose rounded-xl shadow-xl font-medium uppercase text-base text-white active:scale-90 transition-transform ease-in-out duration-300'
+            >
+              {isFetchingNextPage ? (
+                <ClipLoader size={20} color='white' />
               ) : (
-                <PersonCard key={item.id} person={item as PersonProps} />
-              )
-            )}
+                "Load more"
+              )}
+            </button>
+          )}
         </div>
       </section>
     </MainLayout>

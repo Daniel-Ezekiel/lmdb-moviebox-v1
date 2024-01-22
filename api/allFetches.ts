@@ -201,8 +201,12 @@ export async function getPersonComboCredits(id: number) {
 }
 
 // Get search results by URL
-export async function searchByURL(type: string, searchTerm: string) {
-  const url: string = `https://api.themoviedb.org/3/search/${type}?api_key=6f687067231f0a6ceb9c0cae600a334c&query=${searchTerm}&include_adult=true`;
+export async function searchByURL(
+  type: string,
+  searchTerm: string,
+  { pageParam }: { pageParam: number }
+) {
+  const url: string = `https://api.themoviedb.org/3/search/${type}?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c&query=${searchTerm}&include_adult=true`;
 
   try {
     const res = await axios.get(url);
