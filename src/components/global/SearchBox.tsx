@@ -10,18 +10,6 @@ const SearchBox = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchCategory, setSearchCategory] = useState("all");
-  console.log(searchCategory);
-  // console.log(searchQuery, activePage);
-
-  // function searchDatabase(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-
-  //   console.log(event.currentTarget.query.value);
-  //   window.location.href = `/search/keyword?q=${searchQuery
-  //     .trim()
-  //     .split(" ")
-  //     .join("-")}`;
-  // }
 
   return (
     <form
