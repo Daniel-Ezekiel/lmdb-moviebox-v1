@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import MainLayout from "../layout/MainLayout";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { searchByURL } from "../../api/allFetches";
 import { MovieProps, PersonProps, TVProps } from "../../@types";
@@ -9,10 +9,10 @@ import PersonCard from "../components/global/PersonCard";
 import { ClipLoader } from "react-spinners";
 
 const Search = () => {
-  // const { keywordWithQuery } = useParams();
+  const { category } = useParams();
   const [searchParams] = useSearchParams();
 
-  const [category, setCategory] = useState("movie");
+  // const [category, setCategory] = useState(category);
 
   const {
     isLoading,
@@ -25,7 +25,13 @@ const Search = () => {
   } = useInfiniteQuery({
     queryKey: [`${searchParams.getAll("q")[0]}-${category}-search`],
     queryFn: ({ pageParam }) =>
-      searchByURL(category, searchParams.getAll("q")[0], { pageParam }),
+      searchByURL(
+        category === "all" ? "multi" : (category as string),
+        searchParams.getAll("q")[0],
+        {
+          pageParam,
+        }
+      ),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.total_pages) {
@@ -51,12 +57,14 @@ const Search = () => {
                 ? "movies"
                 : category === "tv"
                 ? "TV Shows"
-                : "People"}
+                : category === "person"
+                ? "People"
+                : "All"}
             </span>
           </h1>
         </div>
 
-        <div className='min-w-full grid justify-self-end align-self-center md:gap-1'>
+        {/* <div className='min-w-full grid justify-self-end align-self-center md:gap-1'>
           <span className='font-medium text-sm'>Filter by</span>
           <select
             name='category'
@@ -68,9 +76,8 @@ const Search = () => {
             <option value='movie'>Movies</option>
             <option value='tv'>TV Shows</option>
             <option value='person'>People</option>
-            {/* <option value=""></option> */}
           </select>
-        </div>
+        </div> */}
 
         <div className='col-span-full mt-4 grid gap-4 xsm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
           {!isLoading &&
@@ -79,30 +86,53 @@ const Search = () => {
           data?.pages[0].results.length ? (
             data?.pages.map((page, i) => (
               <Fragment key={i}>
-                {page.results.map((item: MovieProps | TVProps | PersonProps) =>
-                  category === "movie" ? (
-                    <MovieTvCard
-                      key={item.id}
-                      type='movie'
-                      movieOrTv={item as MovieProps}
-                    />
-                  ) : category === "tv" ? (
-                    <MovieTvCard
-                      key={item.id}
-                      type='tv'
-                      movieOrTv={item as TVProps}
-                    />
-                  ) : (
-                    <PersonCard key={item.id} person={item as PersonProps} />
-                  )
-                )}
+                {category === "all" &&
+                  page.results.map((item: MovieProps | TVProps | PersonProps) =>
+                    item.media_type === "movie" ? (
+                      <MovieTvCard
+                        key={item.id}
+                        type='movie'
+                        movieOrTv={item as MovieProps}
+                      />
+                    ) : item.media_type === "tv" ? (
+                      <MovieTvCard
+                        key={item.id}
+                        type='tv'
+                        movieOrTv={item as TVProps}
+                      />
+                    ) : (
+                      <PersonCard key={item.id} person={item as PersonProps} />
+                    )
+                  )}
+                {category !== "all" &&
+                  page.results.map((item: MovieProps | TVProps | PersonProps) =>
+                    category === "movie" ? (
+                      <MovieTvCard
+                        key={item.id}
+                        type='movie'
+                        movieOrTv={item as MovieProps}
+                      />
+                    ) : category === "tv" ? (
+                      <MovieTvCard
+                        key={item.id}
+                        type='tv'
+                        movieOrTv={item as TVProps}
+                      />
+                    ) : (
+                      <PersonCard key={item.id} person={item as PersonProps} />
+                    )
+                  )}
               </Fragment>
             ))
           ) : (
             <p className=' col-span-full place-self-center text-base'>
               No{" "}
               <span className='capitalize'>
-                {category === "tv" ? "TV Show" : category}
+                {category === "tv"
+                  ? "TV Show"
+                  : category === "all"
+                  ? "Results"
+                  : category}
               </span>{" "}
               with that name or title.
             </p>

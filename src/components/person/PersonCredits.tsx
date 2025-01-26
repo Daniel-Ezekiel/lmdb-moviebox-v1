@@ -99,7 +99,7 @@ const PersonCredits = ({
                     (movieOrTv: MovieProps | TVProps) => (
                       <MovieTvCard
                         key={`combo-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
-                        type={movieOrTv?.media_type}
+                        type={movieOrTv.media_type as string}
                         movieOrTv={movieOrTv}
                       />
                     )
@@ -127,7 +127,7 @@ const PersonCredits = ({
                     (movieOrTv: MovieProps | TVProps) => (
                       <MovieTvCard
                         key={`combo-credit-${movieOrTv.id}-${movieOrTv.credit_id}`}
-                        type={movieOrTv?.media_type}
+                        type={movieOrTv.media_type as string}
                         movieOrTv={movieOrTv}
                       />
                     )

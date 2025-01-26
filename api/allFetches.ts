@@ -206,7 +206,7 @@ export async function searchByURL(
   searchTerm: string,
   { pageParam }: { pageParam: number }
 ) {
-  const url: string = `https://api.themoviedb.org/3/search/${type}?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c&query=${searchTerm}&include_adult=true`;
+  const url: string = `https://api.themoviedb.org/3/search/${type}?page=${pageParam}&api_key=6f687067231f0a6ceb9c0cae600a334c&query=${searchTerm}&include_adult=false`;
 
   try {
     const res = await axios.get(url);

@@ -20,6 +20,7 @@ export interface MovieProps {
   credit_id?: string;
   backdrop_path: string;
   poster_path: string;
+  media_type?: string;
   title?: string;
   overview: string;
   release_date: string;
@@ -37,6 +38,7 @@ export interface TVProps {
   credit_id?: string;
   backdrop_path: string;
   poster_path: string;
+  media_type?: string;
   name?: string;
   overview: string;
   first_air_date: string;
@@ -55,6 +57,7 @@ export interface PersonProps {
   known_for_department?: string;
   profile_path: string;
   known_for: MovieProps[] | TVProps[];
+  media_type?: string;
 }
 
 export interface MovieDetailsProps {
