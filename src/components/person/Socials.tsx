@@ -17,8 +17,6 @@ const Socials = ({ personId }: { personId: number }) => {
     queryKey: [`${personId}-details`],
     queryFn: () => getPersonExternalLinks(personId),
   });
-
-  // console.log(!isLoading && !isError && data);
   const links: ExternalLinksProps = !isLoading && !isError && data;
 
   const linksArray = Object.entries(links).filter(
@@ -29,7 +27,6 @@ const Socials = ({ personId }: { personId: number }) => {
         socialName === "twitter_id" ||
         socialName === "tiktok_id")
   );
-  // console.log(!isLoading && !isError && linksArray);
 
   const socialLinks: React.ReactNode[] = linksArray.map(
     ([socialName, value], i) => (
@@ -62,8 +59,6 @@ const Socials = ({ personId }: { personId: number }) => {
       </a>
     )
   );
-
-  // console.log(!isLoading && !isError && socialLinks);
 
   return (
     <>

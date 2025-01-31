@@ -78,10 +78,10 @@ const Favourites = () => {
                 );
           } else {
             // favSnap.data() will be undefined in this case
-            console.log("No such document!");
+            return "No Such Document!";
           }
         } catch (error) {
-          console.log(error);
+          return error;
         }
       }
     };

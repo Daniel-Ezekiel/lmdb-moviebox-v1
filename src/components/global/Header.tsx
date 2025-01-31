@@ -47,7 +47,6 @@ const Header = ({ activePage }: { activePage: string }) => {
 
   const toggleAuthDropDown = () => {
     setAuthShown(!authShown);
-    // console.log("clicked");
   };
 
   return (

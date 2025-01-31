@@ -8,7 +8,7 @@ export async function getNowPlaying() {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -19,7 +19,7 @@ export async function getPopular(type: string) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -30,7 +30,7 @@ export async function getTrending(type: string) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -41,7 +41,7 @@ export async function getTopRated(type: string) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -52,7 +52,7 @@ export async function getUpcoming() {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -74,7 +74,7 @@ export async function getByURL(
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -86,7 +86,7 @@ export async function getPopularPeople({ pageParam }: { pageParam: number }) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -101,7 +101,7 @@ export async function getMovieOrTvDetails(
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -113,7 +113,7 @@ export async function getMovieOrTvCredits(type: string, movieID: string) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -125,7 +125,7 @@ export async function getTrailerVideo(title: string) {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -137,7 +137,7 @@ export async function getSimilarRecommendations(type: string, id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -149,7 +149,7 @@ export async function getPersonDetails(id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -160,7 +160,7 @@ export async function getPersonExternalLinks(id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -172,7 +172,7 @@ export async function getPersonMovieCredits(id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -184,7 +184,7 @@ export async function getPersonTvCredits(id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -196,7 +196,7 @@ export async function getPersonComboCredits(id: number) {
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
@@ -212,6 +212,6 @@ export async function searchByURL(
     const res = await axios.get(url);
     return res.data;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }

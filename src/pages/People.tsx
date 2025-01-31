@@ -28,8 +28,6 @@ const People = () => {
     },
   });
 
-  console.log(!isLoading && data);
-
   const people = data?.pages.map((page, i) => (
     <Fragment key={i}>
       {page.results.map((person: PersonProps) => (

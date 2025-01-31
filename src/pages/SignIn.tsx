@@ -109,9 +109,8 @@ const SignIn = () => {
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
-      console.log(error);
+      return error;
     } finally {
-      console.log("Reset password email sent.");
       setIsLoading(false);
     }
   };

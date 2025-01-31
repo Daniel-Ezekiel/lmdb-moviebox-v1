@@ -24,7 +24,6 @@ const Movies = () => {
       getByURL("movie", category?.split("-").join("_"), { pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      // console.log(lastPage);
       if (lastPage.page < lastPage.total_pages) {
         return lastPage.page + 1;
       } else {
@@ -32,8 +31,6 @@ const Movies = () => {
       }
     },
   });
-
-  console.log(!isLoading && data);
 
   const movies = data?.pages.map((page, i) => (
     <Fragment key={i}>

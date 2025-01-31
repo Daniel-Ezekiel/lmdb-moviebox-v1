@@ -32,7 +32,6 @@ const SignUp = () => {
     try {
       setIsLoading(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
 
       await setDoc(doc(db, "users", res?.user.uid), {
         firstName,
@@ -79,7 +78,6 @@ const SignUp = () => {
 
       setIsLoggedIn(true);
       navigate("/");
-      console.log(await signInWithPopup(auth, googleProvider));
     } catch (error) {
       console.error(error);
     } finally {

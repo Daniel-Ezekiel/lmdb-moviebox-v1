@@ -13,7 +13,6 @@ const SearchBox = ({
 
   return (
     <form
-      // onSubmit={searchDatabase}
       action={`/search/${searchCategory}`}
       method='GET'
       className={`${!isShown && "hidden"} ${
@@ -53,11 +52,7 @@ const SearchBox = ({
           required
           className={`min-w-full p-2 pl-[12rem] rounded-[3rem] bg-[transparent] border-[0.1rem] border-gray-200 placeholder:text-gray-200 text-white text-base`}
         />
-        <button
-          // type='button'
-          className='absolute top-1/2 right-2 -translate-y-1/2'
-        >
-          {" "}
+        <button className='absolute top-1/2 right-2 -translate-y-1/2'>
           <Search fontSize='large' />
         </button>
       </div>
